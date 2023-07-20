@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Repository;
@@ -10,6 +11,7 @@ namespace BlueLife
         {
             var builder = WebApplication.CreateBuilder(args);
             // Add services to the container.
+            builder.Services.AddAutoMapper(typeof(Program));
 
             builder.Services.AddDbContext<RepositoryContext>(options =>
             options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -37,6 +39,11 @@ namespace BlueLife
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.All
+            });
 
             app.UseCors("CorsPolicy");
 
