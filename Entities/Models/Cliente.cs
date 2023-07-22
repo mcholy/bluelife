@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,21 +10,19 @@ namespace Entities.Models
     public class Cliente
     {
         public Guid Id { get; set; }
-        public string? Nombre { get; set; }
-        public string? ApPaterno { get; set; }
-        public string? ApMaterno { get; set; }  
-        public string? Documento { get; set; }   
-        public string? Celular { get; set; } 
-        public string? Direccion { get; set; }  
-        public Guid IdProducto { get; set; } 
+        [ForeignKey(nameof(Persona))]
+        public Guid IdPersona { get; set; }
+        [ForeignKey(nameof(Producto))]
+        public Guid IdProducto { get; set; }
         public string? DiasRecompra { get; set; }
         public string? Referencia { get; set; }
-        public string? Localizacion { get; set; }    
+        public string? Localizacion { get; set; }
         public DateTime DateEntry { get; set; }
         public DateTime DateModify { get; set; }
-        public int IdUserEntry { get; set; }
-        public int IdUserModify { get; set; }
-        public string? Estado { get;set; }
+        public Guid IdUserEntry { get; set; }
+        public Guid IdUserModify { get; set; }
+        public string? Estado { get; set; }
+        public Persona? Persona { get; set; }
         public Producto? Producto { get; set; }
 
     }
