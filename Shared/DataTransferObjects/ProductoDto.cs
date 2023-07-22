@@ -2,8 +2,8 @@
 {
     public record ProductoDto
     {
-        public Guid Id { get; set; }
-        public string? Nombre { get; set; }
-        public string? Estado { get; set; }
+        public Guid Id { get; init; }
+        public string? Nombre { get; init; }
+        public string? Estado { get; init; }
     }
 }

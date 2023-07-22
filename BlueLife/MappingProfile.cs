@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Entities.Models;
 using Shared.DataTransferObjects;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace BlueLife
 {
@@ -11,6 +10,7 @@ namespace BlueLife
         {
             CreateMap<Cliente, ClienteDto>();
             CreateMap<Producto, ProductoDto>();
+            CreateMap<Persona, PersonaDto>();
         }
     }
 }

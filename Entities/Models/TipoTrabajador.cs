@@ -8,9 +8,8 @@ namespace Entities.Models
 {
     public class TipoTrabajador
     {
-
         public Guid Id { get; set; }
-        public string Nombre { get; set; }  
+        public string? Nombre { get; set; }  
         public DateTime DateEntry { get; set; }
         public DateTime DateModify { get; set; }
         public Guid IdUserEntry { get; set; }
