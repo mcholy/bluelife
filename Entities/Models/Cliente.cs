@@ -11,9 +11,9 @@ namespace Entities.Models
     {
         public Guid Id { get; set; }
         [ForeignKey(nameof(Persona))]
-        public Guid IdPersona { get; set; }
+        public Guid PersonaId { get; set; }
         [ForeignKey(nameof(Producto))]
-        public Guid IdProducto { get; set; }
+        public Guid ProductoId { get; set; }
         public string? DiasRecompra { get; set; }
         public string? Referencia { get; set; }
         public string? Localizacion { get; set; }

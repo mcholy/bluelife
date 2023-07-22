@@ -12,9 +12,9 @@ namespace Entities.Models
         public Guid Id { get; set; }
         public string? Nombre { get; set; }
         [ForeignKey(nameof(Producto))]
-        public Guid IdProducto { get; set; }
+        public Guid ProductoId { get; set; }
         [ForeignKey(nameof(TipoMovimiento))]
-        public Guid IdTipoMovimiento { get; set; }
+        public Guid TipoMovimientoId { get; set; }
         public DateTime DateEntry { get; set; }
         public DateTime DateModify { get; set; }
         public Guid IdUserEntry { get; set; }

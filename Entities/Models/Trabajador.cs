@@ -11,9 +11,10 @@ namespace Entities.Models
     {
         public Guid Id { get; set; }
         [ForeignKey(nameof(Persona))]
-        public Guid IdPersona { get; set; }
+        public Guid PersonaId { get; set; }
         public string? Alias { get; set; }
-        public Guid IdTipoTrabajador { get; set; }
+        [ForeignKey(nameof(TipoTrabajador))]
+        public Guid TipoTrabajadorId { get; set; }
         public DateTime DateEntry { get; set; }
         public DateTime DateModify { get; set; }
         public Guid IdUserEntry { get; set; }
