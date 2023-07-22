@@ -1,7 +1,10 @@
+using Contracts.IRepository;
+using Contracts.IService;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Repository;
+using Service;
 
 namespace BlueLife
 {
@@ -26,6 +29,12 @@ namespace BlueLife
                 .AllowAnyHeader()
                 .WithExposedHeaders("X-Pagination"));
             });
+
+            builder.Services.Configure<IISOptions>(options => { });
+
+            builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
+
+            builder.Services.AddScoped<IServiceManager, ServiceManager>();
 
             builder.Services.AddControllers();
 

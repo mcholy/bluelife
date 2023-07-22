@@ -21,6 +21,8 @@ namespace Entities.Models
         public Guid IdUserModify { get; set; }
         public string? Estado { get; set; }
         public Cliente? Cliente { get; set; }
+        public Usuario? Usuario { get; set; }
+        public Trabajador? Trabajador { get; set; }
 
     }
 }

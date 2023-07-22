@@ -11,9 +11,9 @@ namespace Entities.Models
     {
         public Guid Id { get; set; }
         [ForeignKey(nameof(Reparto))]
-        public Guid IdReparto { get; set; }
+        public Guid RepartoId { get; set; }
         [ForeignKey(nameof(Producto))]
-        public Guid IdProducto { get; set; }    
+        public Guid ProductoId { get; set; }    
         public decimal Cantidad { get; set; }   
         public DateTime DateEntry { get; set; }
         public DateTime DateModify { get; set; }
