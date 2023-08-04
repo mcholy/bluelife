@@ -1,12 +1,12 @@
+import LoginForm from "../components/organisms/LoginForm";
 import Main from "../layouts/Main";
 import Drawer from "../components/organisms/Drawer";
-import User from "../layouts/User";
 
 function LoginPage() {
   return (
     <Main>
       <Drawer>
-        <User />
+        <LoginForm />
       </Drawer>
     </Main>
   );
