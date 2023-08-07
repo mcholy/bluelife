@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  bluelife:
+    image: ${DOCKER_REGISTRY-}bluelife
+    build:
+      context: .
+      dockerfile: BlueLife/Dockerfile
+
+  bluelife-db:
+    image: mariadb
+    container_name: Database
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: guest
+      MARIADB_USER: guest
+      MARIADB_PASSWORD: guest
+    volumes:
+        - ./.containers/database:/var/lib/mysql
+    ports:
+        - "3306:3306"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
