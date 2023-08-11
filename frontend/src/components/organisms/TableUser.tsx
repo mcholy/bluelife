@@ -21,7 +21,10 @@ function TableUser() {
             <td>Cy Ganderton</td>
             <td>Quality Control Specialist</td>
             <td>Blue</td>
-            <td>Blue</td>
+            <td>
+              <button className="btn btn-success btn-xs mr-4">Editar</button>
+              <button className="btn btn-error btn-xs">Eliminar</button>
+            </td>
           </tr>
           {/* row 2 */}
           <tr className="hover">
@@ -30,7 +33,10 @@ function TableUser() {
             <td>Hart Hagerty</td>
             <td>Desktop Support Technician</td>
             <td>Purple</td>
-            <td>Blue</td>
+            <td>
+              <button className="btn btn-success btn-xs mr-4">Editar</button>
+              <button className="btn btn-error btn-xs">Eliminar</button>
+            </td>
           </tr>
           {/* row 3 */}
           <tr className="hover">
@@ -39,7 +45,10 @@ function TableUser() {
             <td>Hart Hagerty</td>
             <td>Tax Accountant</td>
             <td>Red</td>
-            <td>Blue</td>
+            <td>
+              <button className="btn btn-success btn-xs mr-4">Editar</button>
+              <button className="btn btn-error btn-xs">Eliminar</button>
+            </td>
           </tr>
         </tbody>
       </table>
