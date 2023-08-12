@@ -4,7 +4,9 @@ using Contracts;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Repository;
 
 namespace BlueLife
 {
@@ -46,6 +48,12 @@ namespace BlueLife
 
             var app = builder.Build();
             // Configure the HTTP request pipeline.
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<RepositoryContext>();
+                dbContext.Database.Migrate();
+            }
+
             var logger = app.Services.GetRequiredService<ILoggerManager>();
             app.ConfigureExceptionHandler(logger);
 

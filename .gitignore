@@ -500,3 +500,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+/.containers/database
