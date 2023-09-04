@@ -1,18 +1,12 @@
-import LabelTextInput from "../molecules/LabelTextInput";
-import ModalUser from "./ModalUsers";
+import { useState } from "react";
+import ButtonLogin from "../atoms/ButtonLogin";
 
 function LoginForm() {
+  const [usuario, setUsuario] = useState("");
+  const [contrasenia, setContrasenia] = useState("");
   return (
     <div className="hero h-full bg-base-100">
       <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold">Login now!</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
-        </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <div className="card-body">
             <div className="form-control">
@@ -23,6 +17,10 @@ function LoginForm() {
                 type="text"
                 placeholder="email"
                 className="input input-bordered"
+                value={usuario}
+                onChange={(event) => {
+                  setUsuario(event.target.value);
+                }}
               />
             </div>
             <div className="form-control">
@@ -33,6 +31,10 @@ function LoginForm() {
                 type="text"
                 placeholder="password"
                 className="input input-bordered"
+                value={contrasenia}
+                onChange={(event) => {
+                  setContrasenia(event.target.value);
+                }}
               />
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
@@ -40,10 +42,14 @@ function LoginForm() {
                 </a>
               </label>
             </div>
-            <LabelTextInput id="txtNombre" placeholder="Nombre" />
-            <ModalUser />
+
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Login</button>
+              <ButtonLogin
+                id="btn_Login"
+                placeholder="Iniciar Sesión"
+                usuario={usuario}
+                contrasenia={contrasenia}
+              />
             </div>
           </div>
         </div>

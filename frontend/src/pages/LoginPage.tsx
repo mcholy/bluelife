@@ -1,15 +1,7 @@
-import Main from "../layouts/Main";
-import Drawer from "../components/organisms/Drawer";
-import User from "../layouts/User";
+import LoginForm from "../components/organisms/LoginForm";
 
 function LoginPage() {
-  return (
-    <Main>
-      <Drawer>
-        <User />
-      </Drawer>
-    </Main>
-  );
+  return <LoginForm></LoginForm>;
 }
 
 export default LoginPage;

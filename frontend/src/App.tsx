@@ -1,16 +1,7 @@
-import axios from "axios";
-import { useEffect } from "react";
-import LoginPage from "./pages/LoginPage";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/router";
 function App() {
-
-  useEffect(
-    () => {
-      axios.get("https://localhost:7103/api/personas").then(res => console.log(res.data));
-    }, []);
-
-  return (
-    <LoginPage />
-  )
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
