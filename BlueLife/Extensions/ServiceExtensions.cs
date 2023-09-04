@@ -1,42 +1,51 @@
-﻿using Contracts;
+﻿using AspNetCoreRateLimit;
+using Contracts;
 using Contracts.IRepository;
 using Contracts.IService;
+using Entities.ConfigurationModels;
+using Entities.Models;
 using LoggerService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using Repository;
 using Serilog;
 using Service;
+using System.Text;
 
 namespace BlueLife.Extensions
 {
     public static class ServiceExtensions
     {
-
-        #region Constants
-        private const string _CORS_VALUE = "CorsPolicy";
-        private const string _DB_CONNECTION = "DefaultConnection";
-        #endregion
-
         #region Methods
-        public static void ConfigureCors(this IServiceCollection services) =>
+        public static void ConfigureCors(this IServiceCollection services, IConfiguration configuration)
+        {
+            var generalConfiguration = new GeneralConfiguration();
+            configuration.Bind(generalConfiguration.Section, generalConfiguration);
             services.AddCors(opt =>
             {
-                opt.AddPolicy(_CORS_VALUE, builder =>
+                opt.AddPolicy(generalConfiguration.CorsPolicyName!, builder =>
                 builder.AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .WithExposedHeaders("X-Pagination"));
             });
+        }
 
         public static void ConfigureIISIntegration(this IServiceCollection services) =>
             services.Configure<IISOptions>(opt => { });
 
-        public static void ConfigureDbContext(this IServiceCollection services, IConfiguration configuration) =>
+        public static void ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
+        {
+            var generalConfiguration = new GeneralConfiguration();
+            configuration.Bind(generalConfiguration.Section, generalConfiguration);
             services.AddDbContext<RepositoryContext>(options =>
-            options.UseMySql(configuration.GetConnectionString(_DB_CONNECTION),
-            ServerVersion.AutoDetect(configuration.GetConnectionString(_DB_CONNECTION)),
+            options.UseMySql(configuration.GetConnectionString(generalConfiguration.ConnectionStringName!),
+            ServerVersion.AutoDetect(configuration.GetConnectionString(generalConfiguration.ConnectionStringName!)),
             b => b.MigrationsAssembly("BlueLife")));
+        }
 
         public static void ConfigureSerilog(this IHostBuilder hostBuilder) =>
             hostBuilder.UseSerilog((context, configuration) =>
@@ -50,6 +59,66 @@ namespace BlueLife.Extensions
 
         public static void ConfigureServiceManager(this IServiceCollection services) =>
             services.AddScoped<IServiceManager, ServiceManager>();
+
+        public static void ConfigureRateLimitingOptions(this IServiceCollection services)
+        {
+            var rateLimitRules = new List<RateLimitRule>
+            {
+                new RateLimitRule
+                {
+                    Endpoint = "*",
+                    Limit = 30,
+                    Period = "5m"
+                }
+            };
+            services.Configure<IpRateLimitOptions>(opt =>
+            {
+                opt.GeneralRules = rateLimitRules;
+            });
+            services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+            services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+            services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
+        }
+        public static void ConfigureIdentity(this IServiceCollection services)
+        {
+            var builder = services.AddIdentity<Usuario, TipoUsuario>(o =>
+            {
+                o.Password.RequireDigit = true;
+                o.Password.RequireLowercase = false;
+                o.Password.RequireUppercase = false;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 10;
+                o.User.RequireUniqueEmail = true;
+            })
+                .AddEntityFrameworkStores<RepositoryContext>()
+                .AddDefaultTokenProviders();
+        }
+
+        public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)
+        {
+            var jwtConfiguration = new JwtConfiguration();
+            configuration.Bind(jwtConfiguration.Section, jwtConfiguration);
+            var secretKey = Environment.GetEnvironmentVariable("SECRET")!;
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtConfiguration.ValidIssuer,
+                    ValidAudience = jwtConfiguration.ValidAudience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+                };
+            });
+        }
         #endregion
     }
 }

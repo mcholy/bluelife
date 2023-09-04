@@ -12,3 +12,7 @@ In this project, we aim to build a comprehensive system to manage and streamline
 This system, named "Bluelife," will revolutionize the bottling company's processes, optimizing production, inventory management, and overall efficiency. With a user-friendly interface and powerful functionalities, it will facilitate day-to-day tasks, ensuring smooth operations and better control over the company's resources.
 
 Stay tuned for more updates and exciting developments as we continue to enhance the Bluelife system!
+
+Create your own secretkey as a environment variable (system)
+Sample in windows:
+setx SECRET "ad3801fd-6d31-47c2-91dd-50576c835d3b" /M
