@@ -1,6 +1,16 @@
-function ButtonBase({ id, placeholder }: buttonProps) {
+import { infoPersonaStore } from "../../stores/infoPersonaStore";
+
+function ButtonBusqueda({ id, placeholder, dni }: buttonProps) {
+  const { setInfoPersona } = infoPersonaStore();
+  const busquedaDocumento = (dni: string, force: string) =>
+    setInfoPersona(dni, force);
+
   return (
-    <button id={id} className="btn btn-active btn-neutral">
+    <button
+      id={id}
+      className="btn btn-active btn-neutral"
+      onClick={() => busquedaDocumento(dni, "0")}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6"
@@ -19,10 +29,10 @@ function ButtonBase({ id, placeholder }: buttonProps) {
     </button>
   );
 }
-
 interface buttonProps {
   id: string;
   placeholder: string;
+  dni: string;
 }
 
-export default ButtonBase;
+export default ButtonBusqueda;

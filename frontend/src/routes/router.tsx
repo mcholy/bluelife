@@ -1,44 +1,45 @@
-import { RouteObject, createBrowserRouter } from "react-router-dom";
-import App from "../App";
+import { Outlet, RouteObject, createBrowserRouter } from "react-router-dom";
+import Almacen from "../layouts/Almacen";
+import BusquedaDNI from "../layouts/BusquedaDNI";
+import Cliente from "../layouts/Cliente";
+import User from "../layouts/User";
 import ErrorPage from "../pages/ErrorPage";
 import HomePage from "../pages/HomePage";
-import Cliente from "../layouts/Cliente";
-import Almacen from "../layouts/Almacen";
-import User from "../layouts/User";
-import BusquedaDNI from "../layouts/BusquedaDNI";
+import LoginPage from "../pages/LoginPage";
 
 const routes: RouteObject[] = [
   {
     path: "/",
-    element: <App />,
-    errorElement: <ErrorPage />,
+    element: <Outlet />,
     children: [
       {
-        path: "Cliente/",
-        element: <Cliente />,
+        path: "login",
+        element: <LoginPage />,
       },
       {
-        path: "Almacen/",
-        element: <Almacen />,
-      },
-      {
-        path: "Usuario/",
-        element: <User />,
-      },
-      {
-        path: "BusquedaDNI/",
-        element: <BusquedaDNI />,
+        path: "home",
+        element: <HomePage />,
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            path: "cliente",
+            element: <Cliente />,
+          },
+          {
+            path: "almacen",
+            element: <Almacen />,
+          },
+          {
+            path: "usuario",
+            element: <User />,
+          },
+          {
+            path: "busquedaDNI",
+            element: <BusquedaDNI />,
+          },
+        ],
       },
     ],
-  },
-  {
-    path: "/login",
-    element: <App />,
-  },
-  {
-    path: "/home",
-    element: <HomePage />,
-    errorElement: <ErrorPage />,
   },
 ];
 
