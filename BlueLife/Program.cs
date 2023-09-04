@@ -1,10 +1,14 @@
+using AspNetCoreRateLimit;
 using BlueLife.ActionFilters;
 using BlueLife.Extensions;
 using Contracts;
+using Entities.ConfigurationModels;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Repository;
 
@@ -12,14 +16,15 @@ namespace BlueLife
 {
     public class Program
     {
-        private const string _CORS_VALUE = "CorsPolicy";
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            // Add services to the container.
-            builder.Services.AddAutoMapper(typeof(Program));
 
-            builder.Services.ConfigureCors();
+            var generalConfiguration = new GeneralConfiguration();
+
+            builder.Configuration.Bind(generalConfiguration.Section, generalConfiguration);
+            // Add services to the container.
+            builder.Services.ConfigureCors(builder.Configuration);
 
             builder.Services.ConfigureIISIntegration();
 
@@ -27,17 +32,32 @@ namespace BlueLife
 
             builder.Services.ConfigureLoggerService();
 
-            builder.Services.ConfigureDbContext(builder.Configuration);
-
             builder.Services.ConfigureRepositoryManager();
 
             builder.Services.ConfigureServiceManager();
+
+            builder.Services.ConfigureDbContext(builder.Configuration);
+
+            builder.Services.AddAutoMapper(typeof(Program));
 
             builder.Services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
+
             builder.Services.AddScoped<ValidationFilterAttribute>();
+
+            builder.Services.AddMemoryCache();
+
+            builder.Services.ConfigureRateLimitingOptions();
+
+            builder.Services.AddHttpContextAccessor();
+
+            builder.Services.AddAuthentication();
+
+            builder.Services.ConfigureIdentity();
+
+            builder.Services.ConfigureJWT(builder.Configuration);
 
             builder.Services.AddControllers(config =>
             {
@@ -48,6 +68,7 @@ namespace BlueLife
 
             var app = builder.Build();
             // Configure the HTTP request pipeline.
+            //Execute migrations
             using (var scope = app.Services.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<RepositoryContext>();
@@ -55,6 +76,7 @@ namespace BlueLife
             }
 
             var logger = app.Services.GetRequiredService<ILoggerManager>();
+
             app.ConfigureExceptionHandler(logger);
 
             if (app.Environment.IsProduction())
@@ -69,7 +91,11 @@ namespace BlueLife
                 ForwardedHeaders = ForwardedHeaders.All
             });
 
-            app.UseCors(_CORS_VALUE);
+            app.UseIpRateLimiting();
+
+            app.UseCors(generalConfiguration.CorsPolicyName!);
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

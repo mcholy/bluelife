@@ -28,7 +28,7 @@ namespace BlueLife.Migrations
                     b.Property<DateTime>("DateEntry")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("DateModify")
+                    b.Property<DateTime?>("DateModify")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("DiasRecompra")
@@ -40,7 +40,7 @@ namespace BlueLife.Migrations
                     b.Property<Guid>("IdUserEntry")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("IdUserModify")
+                    b.Property<Guid?>("IdUserModify")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Localizacion")
@@ -77,7 +77,7 @@ namespace BlueLife.Migrations
                     b.Property<DateTime>("DateEntry")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("DateModify")
+                    b.Property<DateTime?>("DateModify")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Estado")
@@ -86,7 +86,7 @@ namespace BlueLife.Migrations
                     b.Property<Guid>("IdUserEntry")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("IdUserModify")
+                    b.Property<Guid?>("IdUserModify")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Nombre")
@@ -125,7 +125,7 @@ namespace BlueLife.Migrations
                     b.Property<DateTime>("DateEntry")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("DateModify")
+                    b.Property<DateTime?>("DateModify")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Direccion")
@@ -137,10 +137,10 @@ namespace BlueLife.Migrations
                     b.Property<string>("Estado")
                         .HasColumnType("longtext");
 
-                    b.Property<Guid>("IdUserEntry")
+                    b.Property<Guid?>("IdUserEntry")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("IdUserModify")
+                    b.Property<Guid?>("IdUserModify")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Nombre")
@@ -153,33 +153,14 @@ namespace BlueLife.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f4431275-31ee-4afd-8dd7-953329a54599"),
-                            ApMaterno = "de alguien",
-                            ApPaterno = "algo",
+                            Id = new Guid("80abbca8-664d-4b20-b5de-024705497d4a"),
                             Celular = "999999999",
-                            DateEntry = new DateTime(2023, 7, 22, 4, 58, 24, 588, DateTimeKind.Utc).AddTicks(9853),
-                            DateModify = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Direccion = "Lima",
+                            DateEntry = new DateTime(2023, 9, 4, 2, 51, 19, 311, DateTimeKind.Utc).AddTicks(8241),
+                            Direccion = "Internet",
                             Documento = "00000000",
                             Estado = "A",
                             IdUserEntry = new Guid("80abbca8-664d-4b20-b5de-024705497d4a"),
-                            IdUserModify = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Nombre = "Messi"
-                        },
-                        new
-                        {
-                            Id = new Guid("f3a071c6-80ec-43ac-8cef-1f1e5d6b8410"),
-                            ApMaterno = "familia",
-                            ApPaterno = "de",
-                            Celular = "999999999",
-                            DateEntry = new DateTime(2023, 7, 22, 4, 58, 24, 588, DateTimeKind.Utc).AddTicks(9871),
-                            DateModify = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Direccion = "Lima",
-                            Documento = "00000000",
-                            Estado = "A",
-                            IdUserEntry = new Guid("80abbca8-664d-4b20-b5de-024705497d4a"),
-                            IdUserModify = new Guid("00000000-0000-0000-0000-000000000000"),
-                            Nombre = "Cristiano"
+                            Nombre = "Administrator"
                         });
                 });
 
@@ -192,7 +173,7 @@ namespace BlueLife.Migrations
                     b.Property<DateTime>("DateEntry")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("DateModify")
+                    b.Property<DateTime?>("DateModify")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Estado")
@@ -201,7 +182,7 @@ namespace BlueLife.Migrations
                     b.Property<Guid>("IdUserEntry")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("IdUserModify")
+                    b.Property<Guid?>("IdUserModify")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Nombre")
@@ -227,7 +208,7 @@ namespace BlueLife.Migrations
                     b.Property<DateTime>("DateEntry")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("DateModify")
+                    b.Property<DateTime?>("DateModify")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Estado")
@@ -242,11 +223,11 @@ namespace BlueLife.Migrations
                     b.Property<Guid>("IdUserEntry")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("IdUserModify")
+                    b.Property<Guid?>("IdUserModify")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("TrabajadorId")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("TrabajadorId")
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -269,7 +250,7 @@ namespace BlueLife.Migrations
                     b.Property<DateTime>("DateEntry")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("DateModify")
+                    b.Property<DateTime?>("DateModify")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Estado")
@@ -278,7 +259,7 @@ namespace BlueLife.Migrations
                     b.Property<Guid>("IdUserEntry")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("IdUserModify")
+                    b.Property<Guid?>("IdUserModify")
                         .HasColumnType("char(36)");
 
                     b.Property<Guid>("ProductoId")
@@ -305,7 +286,7 @@ namespace BlueLife.Migrations
                     b.Property<DateTime>("DateEntry")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("DateModify")
+                    b.Property<DateTime?>("DateModify")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Estado")
@@ -314,7 +295,7 @@ namespace BlueLife.Migrations
                     b.Property<Guid>("IdUserEntry")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("IdUserModify")
+                    b.Property<Guid?>("IdUserModify")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Nombre")
@@ -334,7 +315,7 @@ namespace BlueLife.Migrations
                     b.Property<DateTime>("DateEntry")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("DateModify")
+                    b.Property<DateTime?>("DateModify")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Estado")
@@ -343,7 +324,7 @@ namespace BlueLife.Migrations
                     b.Property<Guid>("IdUserEntry")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("IdUserModify")
+                    b.Property<Guid?>("IdUserModify")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Nombre")
@@ -356,14 +337,17 @@ namespace BlueLife.Migrations
 
             modelBuilder.Entity("Entities.Models.TipoUsuario", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateEntry")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("DateModify")
+                    b.Property<DateTime?>("DateModify")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Estado")
@@ -372,15 +356,46 @@ namespace BlueLife.Migrations
                     b.Property<Guid>("IdUserEntry")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("IdUserModify")
+                    b.Property<Guid?>("IdUserModify")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Nombre")
-                        .HasColumnType("longtext");
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TipoUsuarios");
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "8e79dfae-f1e5-4b0d-90a1-934bf8865def",
+                            ConcurrencyStamp = "783ccdf7-85fe-4a10-a705-130bf0f79a1c",
+                            DateEntry = new DateTime(2023, 9, 4, 2, 51, 19, 311, DateTimeKind.Utc).AddTicks(8472),
+                            Estado = "A",
+                            IdUserEntry = new Guid("80abbca8-664d-4b20-b5de-024705497d4a"),
+                            Name = "Manager",
+                            NormalizedName = "MANAGER"
+                        },
+                        new
+                        {
+                            Id = "f2fc4450-4b62-42be-b22d-d84b96f6531a",
+                            ConcurrencyStamp = "7b96920d-f844-436b-96ed-530edd8086a1",
+                            DateEntry = new DateTime(2023, 9, 4, 2, 51, 19, 311, DateTimeKind.Utc).AddTicks(8491),
+                            Estado = "A",
+                            IdUserEntry = new Guid("80abbca8-664d-4b20-b5de-024705497d4a"),
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Models.Trabajador", b =>
@@ -395,7 +410,7 @@ namespace BlueLife.Migrations
                     b.Property<DateTime>("DateEntry")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("DateModify")
+                    b.Property<DateTime?>("DateModify")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Estado")
@@ -404,7 +419,7 @@ namespace BlueLife.Migrations
                     b.Property<Guid>("IdUserEntry")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("IdUserModify")
+                    b.Property<Guid?>("IdUserModify")
                         .HasColumnType("char(36)");
 
                     b.Property<Guid>("PersonaId")
@@ -425,21 +440,28 @@ namespace BlueLife.Migrations
 
             modelBuilder.Entity("Entities.Models.Usuario", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
 
-                    b.Property<string>("Contrasenia")
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateEntry")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("DateModify")
+                    b.Property<DateTime?>("DateModify")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Estado")
                         .HasColumnType("longtext");
@@ -447,26 +469,166 @@ namespace BlueLife.Migrations
                     b.Property<Guid>("IdUserEntry")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("IdUserModify")
+                    b.Property<Guid?>("IdUserModify")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Nombre")
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("PasswordHash")
                         .HasColumnType("longtext");
 
                     b.Property<Guid>("PersonaId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("TipoUsuarioId")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("RefreshTokenExpiryTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
 
                     b.HasIndex("PersonaId")
                         .IsUnique();
 
-                    b.HasIndex("TipoUsuarioId");
+                    b.ToTable("AspNetUsers", (string)null);
+                });
 
-                    b.ToTable("Usuarios");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Models.Cliente", b =>
@@ -517,9 +679,7 @@ namespace BlueLife.Migrations
 
                     b.HasOne("Entities.Models.Usuario", "Usuario")
                         .WithMany()
-                        .HasForeignKey("TrabajadorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TrabajadorId");
 
                     b.Navigation("Cliente");
 
@@ -572,15 +732,58 @@ namespace BlueLife.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.TipoUsuario", "TipoUsuario")
-                        .WithMany("Usuarios")
-                        .HasForeignKey("TipoUsuarioId")
+                    b.Navigation("Persona");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Entities.Models.TipoUsuario", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Entities.Models.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Entities.Models.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Entities.Models.TipoUsuario", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Persona");
+                    b.HasOne("Entities.Models.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Navigation("TipoUsuario");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Entities.Models.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entities.Models.Persona", b =>
@@ -614,11 +817,6 @@ namespace BlueLife.Migrations
             modelBuilder.Entity("Entities.Models.TipoTrabajador", b =>
                 {
                     b.Navigation("Trabajadores");
-                });
-
-            modelBuilder.Entity("Entities.Models.TipoUsuario", b =>
-                {
-                    b.Navigation("Usuarios");
                 });
 #pragma warning restore 612, 618
         }

@@ -16,9 +16,9 @@ namespace Entities.Models
         [ForeignKey(nameof(TipoTrabajador))]
         public Guid TipoTrabajadorId { get; set; }
         public DateTime DateEntry { get; set; }
-        public DateTime DateModify { get; set; }
+        public DateTime? DateModify { get; set; }
         public Guid IdUserEntry { get; set; }
-        public Guid IdUserModify { get; set; }
+        public Guid? IdUserModify { get; set; }
         public string? Estado { get; set; }
         public Persona? Persona { get; set; }
         public TipoTrabajador? TipoTrabajador { get; set; }
