@@ -6,5 +6,6 @@ namespace Contracts.IService
     {
         Task<IEnumerable<PersonaDto>> GetAllPersonasAsync(bool trackChanges);
         Task<PersonaDto> GetPersonaAsync(Guid id, bool trackChanges);
+        Task<PersonaDto> CreatePersonaAsync(PersonaForCreationDto persona);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Contracts.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shared.DataTransferObjects;
 
 namespace BlueLife.Controllers
 {
@@ -15,19 +17,27 @@ namespace BlueLife.Controllers
             _service = service;
         }
 
-        [HttpGet]
+        [HttpGet(Name = "GetPersonas")]
+        //[Authorize(Roles = "Administrator")]
+        [Authorize]
         public async Task<IActionResult> GetPersonas()
         {
-            //throw new Exception("Exception");
-            var Personas = await _service.PersonaService.GetAllPersonasAsync(trackChanges: false);
-            return Ok(Personas);
+            var personas = await _service.PersonaService.GetAllPersonasAsync(trackChanges: false);
+            return Ok(personas);
         }
 
         [HttpGet("{id:guid}", Name = "PersonaById")]
         public async Task<IActionResult> GetPersona(Guid id)
         {
-            var Persona = await _service.PersonaService.GetPersonaAsync(id, trackChanges: false);
-            return Ok(Persona);
+            var persona = await _service.PersonaService.GetPersonaAsync(id, trackChanges: false);
+            return Ok(persona);
+        }
+
+        [HttpPost(Name = "CreatePersona")]
+        public async Task<IActionResult> CreatePersona([FromBody] PersonaForCreationDto persona)
+        {
+            var createdPersona = await _service.PersonaService.CreatePersonaAsync(persona);
+            return CreatedAtRoute("PersonaById", new { id = createdPersona.Id }, createdPersona);
         }
     }
 }

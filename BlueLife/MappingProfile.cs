@@ -11,6 +11,8 @@ namespace BlueLife
             CreateMap<Cliente, ClienteDto>();
             CreateMap<Producto, ProductoDto>();
             CreateMap<Persona, PersonaDto>();
+            CreateMap<PersonaForCreationDto, Persona>();
+            CreateMap<UserForRegistrationDto, Usuario>();
         }
     }
 }

@@ -18,6 +18,15 @@ namespace Service
             _mapper = mapper;
         }
 
+        public async Task<PersonaDto> CreatePersonaAsync(PersonaForCreationDto persona)
+        {
+            var personaEntity = _mapper.Map<Persona>(persona);
+            _repository.Persona.CreatePersona(personaEntity);
+            await _repository.SaveAsync();
+            var personaToReturn = _mapper.Map<PersonaDto>(personaEntity);
+            return personaToReturn;
+        }
+
         public async Task<IEnumerable<PersonaDto>> GetAllPersonasAsync(bool trackChanges)
         {
             var personas = await _repository.Persona.GetAllPersonasAsync(trackChanges);

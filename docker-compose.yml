@@ -1,0 +1,38 @@
+version: '3.4'
+
+services:
+  bluelife-db:
+    image: mariadb
+    container_name: Database
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: guest
+      MARIADB_USER: guest
+      MARIADB_PASSWORD: guest
+    volumes:
+        - ./.containers/database:/var/lib/mysql
+    ports:
+        - "3306:3306"
+
+  bluelife:
+    image: ${DOCKER_REGISTRY-}bluelife
+    build:
+      context: .
+      dockerfile: BlueLife/Dockerfile
+    depends_on:
+      - bluelife-db
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=bluelife-db;Port=3306;Database=bluelife;User=root;Password=guest;"
+    volumes:
+        - ./.containers/myapp:/root/.aspnet/DataProtection-Keys
+    ports:
+        - "80:80"
+        - "52683:443"
+
+  adminer:
+    image: adminer
+    restart: always
+    environment:
+      ADMINER_DEFAULT_SERVER: bluelife-db
+    ports:
+      - "8080:8080"

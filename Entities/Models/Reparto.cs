@@ -13,14 +13,14 @@ namespace Entities.Models
         [ForeignKey(nameof(Cliente))]
         public Guid ClienteId { get; set; }
         [ForeignKey(nameof(Usuario))]
-        public Guid TrabajadorId { get; set; }
+        public string? TrabajadorId { get; set; }
         public DateTime FechaEntrega { get; set; }
         public string? Comentario { get; set; }
         public string? EstadoReparto { get; set; }
         public DateTime DateEntry { get; set; }
-        public DateTime DateModify { get; set; }
+        public DateTime? DateModify { get; set; }
         public Guid IdUserEntry { get; set; }
-        public Guid IdUserModify { get; set; }
+        public Guid? IdUserModify { get; set; }
         public string? Estado { get; set; }
         public Cliente? Cliente { get; set; }
         public Usuario? Usuario { get; set; }

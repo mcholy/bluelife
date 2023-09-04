@@ -16,9 +16,9 @@ namespace Entities.Models
         public string? Celular { get; set; }
         public string? Direccion { get; set; }
         public DateTime DateEntry { get; set; }
-        public DateTime DateModify { get; set; }
-        public Guid IdUserEntry { get; set; }
-        public Guid IdUserModify { get; set; }
+        public DateTime? DateModify { get; set; }
+        public Guid? IdUserEntry { get; set; }
+        public Guid? IdUserModify { get; set; }
         public string? Estado { get; set; }
         public Cliente? Cliente { get; set; }
         public Usuario? Usuario { get; set; }
