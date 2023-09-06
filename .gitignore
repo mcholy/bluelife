@@ -502,3 +502,4 @@ dist-ssr
 *.sw?
 /.containers/database
 /.containers/myapp
+/BlueLife/.containers/keys

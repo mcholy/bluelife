@@ -3,12 +3,10 @@ using BlueLife.ActionFilters;
 using BlueLife.Extensions;
 using Contracts;
 using Entities.ConfigurationModels;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Repository;
 
@@ -37,6 +35,8 @@ namespace BlueLife
             builder.Services.ConfigureServiceManager();
 
             builder.Services.ConfigureDbContext(builder.Configuration);
+
+            builder.Services.ConfigureDataProtection(builder.Environment);
 
             builder.Services.AddAutoMapper(typeof(Program));
 
