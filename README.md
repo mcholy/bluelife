@@ -13,6 +13,5 @@ This system, named "Bluelife," will revolutionize the bottling company's process
 
 Stay tuned for more updates and exciting developments as we continue to enhance the Bluelife system!
 
-Create your own secretkey as a environment variable (system)
-Sample in windows:
+### Create your own secretkey as an environment variable (system) Sample in windows:
 setx SECRET "ad3801fd-6d31-47c2-91dd-50576c835d3b" /M

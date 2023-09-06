@@ -5,9 +5,7 @@ function ModalProducto() {
       <button
         className="btn"
         onClick={() =>
-          (
-            document.getElementById("modalProducto") as HTMLFormElement
-          ).showModal()
+          (document.getElementById("modalProducto") as HTMLFormElement).showModal()
         }
       >
         Agregar Producto

@@ -8,7 +8,8 @@ using LoggerService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Repository;
 using Serilog;
@@ -71,10 +72,12 @@ namespace BlueLife.Extensions
                     Period = "5m"
                 }
             };
+
             services.Configure<IpRateLimitOptions>(opt =>
             {
                 opt.GeneralRules = rateLimitRules;
             });
+
             services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
             services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();

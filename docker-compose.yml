@@ -23,6 +23,7 @@ services:
       - bluelife-db
     environment:
       ConnectionStrings__DefaultConnection: "Server=bluelife-db;Port=3306;Database=bluelife;User=root;Password=guest;"
+      SECRET: "ad3801fd-6d31-47c2-91dd-50576c835d3b"
     volumes:
         - ./.containers/myapp:/root/.aspnet/DataProtection-Keys
     ports:
