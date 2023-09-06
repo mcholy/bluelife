@@ -6,14 +6,14 @@ using Entities.ConfigurationModels;
 using Entities.Models;
 using LoggerService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Repository;
 using Serilog;
 using Service;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace BlueLife.Extensions
@@ -121,6 +121,18 @@ namespace BlueLife.Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
                 };
             });
+        }
+
+        public static void ConfigureDataProtection(this IServiceCollection services, IWebHostEnvironment environment)
+        {
+            var keysDirectory = new DirectoryInfo(Path.Combine(environment.ContentRootPath, ".containers", "keys"));
+            var dataProtectionBuilder = services.AddDataProtection()
+            .PersistKeysToFileSystem(keysDirectory);
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                dataProtectionBuilder.ProtectKeysWithDpapi();
+            }
         }
         #endregion
     }
