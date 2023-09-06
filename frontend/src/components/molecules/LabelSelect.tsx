@@ -5,7 +5,7 @@ function LabelSelect({ id, placeholder }: selectProps) {
         <span className="label-text">{placeholder}</span>
       </label>
       <select id={id} className="select select-bordered">
-        <option disabled selected>
+        <option disabled>
           Pick one
         </option>
         <option>Star Wars</option>

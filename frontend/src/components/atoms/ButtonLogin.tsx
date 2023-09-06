@@ -1,27 +1,21 @@
-import { useNavigate } from "react-router-dom";
-import { infoValidacionStore } from "../../stores/validarLoginStore";
-function ButtonLogin({ id, placeholder, usuario, contrasenia }: loginProps) {
-  const navigate = useNavigate();
-  const { setInfoValidacion } = infoValidacionStore();
-  const validaLogin = (usuario: string, contrasenia: string) => {
-    setInfoValidacion(usuario, contrasenia);
-    navigate("/home/");
-  };
-
+function ButtonLogin({ placeholder, disabled, type }: loginProps) {
   return (
     <button
-      id={id}
+      type={type}
       className="btn btn-active btn-neutral"
-      onClick={() => validaLogin(usuario, contrasenia)}
+      disabled={disabled}
     >
       {placeholder}
     </button>
   );
 }
 interface loginProps {
-  id: string;
   placeholder: string;
-  usuario: string;
-  contrasenia: string;
+  disabled: boolean;
+  type: "submit" | "button";
+}
+
+ButtonLogin.DefaultProps = {
+  type: "button",
 }
 export default ButtonLogin;

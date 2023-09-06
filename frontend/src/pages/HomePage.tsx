@@ -1,7 +1,8 @@
-import Main from "../layouts/Main";
 import Drawer from "../components/organisms/Drawer";
+import Main from "../layouts/Main";
 
 function HomePage() {
+
   return (
     <Main>
       <Drawer></Drawer>
