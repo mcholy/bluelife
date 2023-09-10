@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Shared.DataTransferObjects
 {
-    internal class RepartoDetalleDto
+    internal class VentaDetalleDto
     {
         public Guid Id { get; set; }
-        public Guid RepartoId { get; set; }
+        public Guid VentaId { get; set; }
         public Guid ProductoId { get; set; }
         public decimal Cantidad { get; set; }
         public string? Estado { get; set; }

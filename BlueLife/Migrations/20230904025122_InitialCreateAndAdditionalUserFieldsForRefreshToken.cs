@@ -414,7 +414,7 @@ namespace BlueLife.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Repartos",
+                name: "Ventas",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -424,7 +424,7 @@ namespace BlueLife.Migrations
                     FechaEntrega = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Comentario = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    EstadoReparto = table.Column<string>(type: "longtext", nullable: true)
+                    EstadoVenta = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DateEntry = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     DateModify = table.Column<DateTime>(type: "datetime(6)", nullable: true),
@@ -435,14 +435,14 @@ namespace BlueLife.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Repartos", x => x.Id);
+                    table.PrimaryKey("PK_Ventas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Repartos_AspNetUsers_TrabajadorId",
+                        name: "FK_Ventas_AspNetUsers_TrabajadorId",
                         column: x => x.TrabajadorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Repartos_Clientes_ClienteId",
+                        name: "FK_Ventas_Clientes_ClienteId",
                         column: x => x.ClienteId,
                         principalTable: "Clientes",
                         principalColumn: "Id",
@@ -451,11 +451,11 @@ namespace BlueLife.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "RepartoDetalles",
+                name: "VentaDetalles",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    RepartoId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    VentaId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     ProductoId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Cantidad = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     DateEntry = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -467,17 +467,17 @@ namespace BlueLife.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RepartoDetalles", x => x.Id);
+                    table.PrimaryKey("PK_VentaDetalles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RepartoDetalles_Productos_ProductoId",
+                        name: "FK_VentaDetalles_Productos_ProductoId",
                         column: x => x.ProductoId,
                         principalTable: "Productos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RepartoDetalles_Repartos_RepartoId",
-                        column: x => x.RepartoId,
-                        principalTable: "Repartos",
+                        name: "FK_VentaDetalles_Ventas_VentaId",
+                        column: x => x.VentaId,
+                        principalTable: "Ventas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -563,23 +563,23 @@ namespace BlueLife.Migrations
                 column: "TipoMovimientoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RepartoDetalles_ProductoId",
-                table: "RepartoDetalles",
+                name: "IX_VentaDetalles_ProductoId",
+                table: "VentaDetalles",
                 column: "ProductoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RepartoDetalles_RepartoId",
-                table: "RepartoDetalles",
-                column: "RepartoId");
+                name: "IX_VentaDetalles_VentaId",
+                table: "VentaDetalles",
+                column: "VentaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Repartos_ClienteId",
-                table: "Repartos",
+                name: "IX_Ventas_ClienteId",
+                table: "Ventas",
                 column: "ClienteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Repartos_TrabajadorId",
-                table: "Repartos",
+                name: "IX_Ventas_TrabajadorId",
+                table: "Ventas",
                 column: "TrabajadorId");
 
             migrationBuilder.CreateIndex(
@@ -615,7 +615,7 @@ namespace BlueLife.Migrations
                 name: "Movimientos");
 
             migrationBuilder.DropTable(
-                name: "RepartoDetalles");
+                name: "VentaDetalles");
 
             migrationBuilder.DropTable(
                 name: "Trabajadores");
@@ -627,7 +627,7 @@ namespace BlueLife.Migrations
                 name: "TipoMovimientos");
 
             migrationBuilder.DropTable(
-                name: "Repartos");
+                name: "Ventas");
 
             migrationBuilder.DropTable(
                 name: "TipoTrabajadores");

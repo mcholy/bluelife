@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Models
 {
@@ -12,9 +7,11 @@ namespace Entities.Models
         public Guid Id { get; set; }
         [ForeignKey(nameof(Persona))]
         public Guid PersonaId { get; set; }
-        public string? Alias { get; set; }
         [ForeignKey(nameof(TipoTrabajador))]
         public Guid TipoTrabajadorId { get; set; }
+        [ForeignKey(nameof(Empresa))]
+        public Guid EmpresaId { get; set; }
+        public string? Alias { get; set; }
         public DateTime DateEntry { get; set; }
         public DateTime? DateModify { get; set; }
         public Guid IdUserEntry { get; set; }
@@ -22,6 +19,8 @@ namespace Entities.Models
         public string? Estado { get; set; }
         public Persona? Persona { get; set; }
         public TipoTrabajador? TipoTrabajador { get; set; }
+        public Empresa? Empresa { get; set; }
+        public ICollection<Venta>? Ventas { get; set; }
 
     }
 }

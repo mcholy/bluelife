@@ -195,7 +195,7 @@ namespace BlueLife.Migrations
                     b.ToTable("Productos");
                 });
 
-            modelBuilder.Entity("Entities.Models.Reparto", b =>
+            modelBuilder.Entity("Entities.Models.Venta", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -216,7 +216,7 @@ namespace BlueLife.Migrations
                     b.Property<string>("Estado")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("EstadoReparto")
+                    b.Property<string>("EstadoVenta")
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("FechaEntrega")
@@ -237,10 +237,10 @@ namespace BlueLife.Migrations
 
                     b.HasIndex("TrabajadorId");
 
-                    b.ToTable("Repartos");
+                    b.ToTable("Ventas");
                 });
 
-            modelBuilder.Entity("Entities.Models.RepartoDetalle", b =>
+            modelBuilder.Entity("Entities.Models.VentaDetalle", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -267,16 +267,16 @@ namespace BlueLife.Migrations
                     b.Property<Guid>("ProductoId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("RepartoId")
+                    b.Property<Guid>("VentaId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductoId");
 
-                    b.HasIndex("RepartoId");
+                    b.HasIndex("VentaId");
 
-                    b.ToTable("RepartoDetalles");
+                    b.ToTable("VentaDetalles");
                 });
 
             modelBuilder.Entity("Entities.Models.TipoMovimiento", b =>
@@ -671,7 +671,7 @@ namespace BlueLife.Migrations
                     b.Navigation("TipoMovimiento");
                 });
 
-            modelBuilder.Entity("Entities.Models.Reparto", b =>
+            modelBuilder.Entity("Entities.Models.Venta", b =>
                 {
                     b.HasOne("Entities.Models.Cliente", "Cliente")
                         .WithMany()
@@ -688,23 +688,23 @@ namespace BlueLife.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("Entities.Models.RepartoDetalle", b =>
+            modelBuilder.Entity("Entities.Models.VentaDetalle", b =>
                 {
                     b.HasOne("Entities.Models.Producto", "Producto")
-                        .WithMany("RepartoDetalles")
+                        .WithMany("VentaDetalles")
                         .HasForeignKey("ProductoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.Reparto", "Reparto")
-                        .WithMany("RepartoDetalles")
-                        .HasForeignKey("RepartoId")
+                    b.HasOne("Entities.Models.Venta", "Venta")
+                        .WithMany("VentaDetalles")
+                        .HasForeignKey("VentaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Producto");
 
-                    b.Navigation("Reparto");
+                    b.Navigation("Venta");
                 });
 
             modelBuilder.Entity("Entities.Models.Trabajador", b =>
@@ -803,12 +803,12 @@ namespace BlueLife.Migrations
 
                     b.Navigation("Movimientos");
 
-                    b.Navigation("RepartoDetalles");
+                    b.Navigation("VentaDetalles");
                 });
 
-            modelBuilder.Entity("Entities.Models.Reparto", b =>
+            modelBuilder.Entity("Entities.Models.Venta", b =>
                 {
-                    b.Navigation("RepartoDetalles");
+                    b.Navigation("VentaDetalles");
                 });
 
             modelBuilder.Entity("Entities.Models.TipoMovimiento", b =>

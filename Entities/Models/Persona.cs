@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Models
 {
     public class Persona
     {
         public Guid Id { get; set; }
+        [ForeignKey(nameof(Empresa))]
+        public Guid? EmpresaId { get; set; }
         public string? Nombre { get; set; }
         public string? ApPaterno { get; set; }
         public string? ApMaterno { get; set; }
@@ -23,6 +21,6 @@ namespace Entities.Models
         public Cliente? Cliente { get; set; }
         public Usuario? Usuario { get; set; }
         public Trabajador? Trabajador { get; set; }
-
+        public Empresa? Empresa { get; set; }
     }
 }

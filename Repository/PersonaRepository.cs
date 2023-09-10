@@ -1,6 +1,10 @@
 ﻿using Contracts.IRepository;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
+using Repository.Extensions;
+using Shared.RequestFeatures;
+using System.ComponentModel.Design;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Repository
 {
@@ -12,10 +16,17 @@ namespace Repository
 
         public void DeletePersona(Persona persona) => Delete(persona);
 
-        public async Task<IEnumerable<Persona>> GetAllPersonasAsync(bool trackChanges) =>
-        await FindAll(trackChanges)
-        .OrderBy(c => c.Nombre)
-        .ToListAsync();
+        public async Task<PagedList<Persona>> GetAllPersonasAsync(PersonaParameters personaParameters, bool trackChanges)
+        {
+            var personas = await FindAll(trackChanges)
+                .Search(personaParameters.SearchTerm)
+                .OrderBy(c => c.Nombre)
+                .Skip((personaParameters.PageNumber - 1) * personaParameters.PageSize)
+                .Take(personaParameters.PageSize)
+                .ToListAsync();
+            var count = await FindAll(trackChanges).CountAsync();
+            return PagedList<Persona>.ToPagedList(personas, count, personaParameters.PageNumber, personaParameters.PageSize);
+        }
 
         public async Task<IEnumerable<Persona>> GetByIdsAsync(IEnumerable<Guid> ids, bool trackChanges) =>
             await FindByCondition(x => ids.Contains(x.Id), trackChanges).ToListAsync();
