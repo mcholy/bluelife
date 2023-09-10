@@ -503,3 +503,4 @@ dist-ssr
 /.containers/database
 /.containers/myapp
 /BlueLife/.containers/keys
+/.containers/mongodb
