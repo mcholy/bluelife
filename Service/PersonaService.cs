@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using Contracts.IRepository;
 using Contracts.IService;
+using Entities.ConfigurationModels;
 using Entities.Models;
-using Microsoft.Extensions.Logging;
 using Shared.DataTransferObjects;
+using Shared.RequestFeatures;
 
 namespace Service
 {
@@ -21,17 +22,18 @@ namespace Service
         public async Task<PersonaDto> CreatePersonaAsync(PersonaForCreationDto persona)
         {
             var personaEntity = _mapper.Map<Persona>(persona);
+            SetDefaultValuesToPersona(ref personaEntity, TypeOfActions.Create);
             _repository.Persona.CreatePersona(personaEntity);
             await _repository.SaveAsync();
             var personaToReturn = _mapper.Map<PersonaDto>(personaEntity);
             return personaToReturn;
         }
 
-        public async Task<IEnumerable<PersonaDto>> GetAllPersonasAsync(bool trackChanges)
+        public async Task<(IEnumerable<PersonaDto> personas, MetaData metaData)> GetAllPersonasAsync(PersonaParameters personaParameters, bool trackChanges)
         {
-            var personas = await _repository.Persona.GetAllPersonasAsync(trackChanges);
-            var personasDto = _mapper.Map<IEnumerable<PersonaDto>>(personas);
-            return personasDto;
+            var personasWithMetaData = await _repository.Persona.GetAllPersonasAsync(personaParameters, trackChanges);
+            var personasDto = _mapper.Map<IEnumerable<PersonaDto>>(personasWithMetaData);
+            return (personas: personasDto, metaData: personasWithMetaData.MetaData);
         }
 
 
@@ -44,5 +46,16 @@ namespace Service
 
         private async Task<Persona> GetPersonaAndCheckIfItExists(Guid id, bool trackChanges) =>
         await _repository.Persona.GetPersonaAsync(id, trackChanges) ?? throw new Exception("Persona no existe.");
+
+        private static void SetDefaultValuesToPersona(ref Persona persona, TypeOfActions typeAction)
+        {
+            if (persona == null) return;
+            if (typeAction == TypeOfActions.Create)
+            {
+                persona.DateEntry = DateTime.UtcNow;
+                persona.Estado = Constants.Status.Actived;
+            }
+            if (typeAction == TypeOfActions.Update) persona.DateModify = DateTime.UtcNow;
+        }
     }
 }

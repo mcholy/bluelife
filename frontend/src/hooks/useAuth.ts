@@ -1,25 +1,41 @@
 import { useEffect } from "react";
-import { getAccessToken } from "../api/handlerJWT";
+import { refreshToken } from "../api/authentication";
+import {
+  getAccessToken,
+  getClaims,
+  getRefreshToken,
+  logout,
+  saveTokenInLocalStorage,
+} from "../api/handlerJWT";
+import { authenticationResponse } from "../models/auth.model";
 import { authenticationStore } from "../stores/authenticationStore";
 
-interface AuthState {
-  isLoggedIn: boolean;
-}
-
-function checkAuthentication(): AuthState {
-  const token = getAccessToken();
-  const isLoggedIn = !!token;
-  return { isLoggedIn };
+export async function checkAndTryRefreshToken() {
+  try {
+    const { expired } = getClaims();
+    if (expired) {
+      const response = await refreshToken({
+        accessToken: getAccessToken()!,
+        refreshToken: getRefreshToken()!,
+      });
+      saveTokenInLocalStorage(response as authenticationResponse);
+    } else {
+      saveTokenInLocalStorage({
+        accessToken: getAccessToken()!,
+        refreshToken: getRefreshToken()!,
+      });
+    }
+  } catch (error) {
+    logout();
+  }
 }
 
 function useAuth() {
-  const { isAuthenticated, setIsAuthenticated } = authenticationStore();
+  const { hydrate } = authenticationStore();
   useEffect(() => {
-    const { isLoggedIn } = checkAuthentication();
-    setIsAuthenticated(isLoggedIn);
+    hydrate();
     return () => {};
-  }, [setIsAuthenticated]);
-  return isAuthenticated;
+  }, [hydrate]);
 }
 
 export default useAuth;

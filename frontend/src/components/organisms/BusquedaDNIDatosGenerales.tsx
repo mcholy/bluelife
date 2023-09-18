@@ -29,6 +29,8 @@ function SecDatosGenerales() {
   const [datosFamiliares, setDatosFamiliares] = useState<
     datosFamiliaresProps[]
   >([]);
+  const activeButtonStyle: string =
+    "--tw-bg-opacity: 1; background-color: hsl(var(--n) / var(--tw-bg-opacity)); --tw-text-opacity: 1; color: hsl(var(--nc) / var(--tw-text-opacity));";
   useEffect(() => {
     if (
       typeof infoPersonaData === "object" &&
@@ -86,6 +88,7 @@ function SecDatosGenerales() {
     }
   }, [infoPersonaData]);
 
+
   if (loading)
     return (
       <div className="flex justify-center">
@@ -106,31 +109,65 @@ function SecDatosGenerales() {
 
   return (
     <div>
-      <div className="mx-auto mb-4 object-center w-6/12 ">
+      <div className="mx-auto mb-4 object-center w-11/12 flex justify-center items-center">
         <ul className="menu  menu-vertical lg:menu-horizontal bg-base-200 rounded-box">
           <li>
-            <button onClick={() => setCurrentTab("datosGenerales")}>
+            <button
+              className={`${
+                currentTab === "datosGenerales" ? activeButtonStyle : ""
+              }`}
+              onClick={() => setCurrentTab("datosGenerales")}
+            >
               Datos Generales
             </button>
           </li>
           <li>
-            <button onClick={() => setCurrentTab("datosLaborales")}>
+            <button
+              className={`${
+                currentTab === "datosLaborales" ? activeButtonStyle : ""
+              }`}
+              onClick={() => setCurrentTab("datosLaborales")}
+            >
               Datos Laborales
             </button>
           </li>
           <li>
-            <button onClick={() => setCurrentTab("datosHistorico")}>
+            <button
+              className={`${
+                currentTab === "datosHistorico" ? activeButtonStyle : ""
+              }`}
+              onClick={() => setCurrentTab("datosHistorico")}
+            >
               Historico
             </button>
           </li>
           <li>
-            <button onClick={() => setCurrentTab("datosDeudas")}>Deudas</button>
+            <button
+              className={`${
+                currentTab === "datosDeudas" ? activeButtonStyle : ""
+              }`}
+              onClick={() => setCurrentTab("datosDeudas")}
+            >
+              Deudas
+            </button>
           </li>
           <li>
-            <button onClick={() => setCurrentTab("datosOtros")}>Otros</button>
+            <button
+              className={`${
+                currentTab === "datosOtros" ? activeButtonStyle : ""
+              }`}
+              onClick={() => setCurrentTab("datosOtros")}
+            >
+              Otros
+            </button>
           </li>
           <li>
-            <button onClick={() => setCurrentTab("datosResumen")}>
+            <button
+              className={`${
+                currentTab === "datosResumen" ? activeButtonStyle : ""
+              }`}
+              onClick={() => setCurrentTab("datosResumen")}
+            >
               Resumen Financiero
             </button>
           </li>
@@ -169,8 +206,8 @@ function SecDatosGenerales() {
                     {datosGenerales.sexo == "1"
                       ? "Masculino"
                       : datosGenerales.sexo == "2"
-                        ? "Femenino"
-                        : ""}
+                      ? "Femenino"
+                      : ""}
                   </div>
                 </div>
 
@@ -216,13 +253,13 @@ function SecDatosGenerales() {
                   <tbody>
                     {datosDirecciones
                       ? datosDirecciones.map((direccion, index) => (
-                        <tr key={`ubigeo-${index}`}>
-                          <td>{direccion.fecha_data}</td>
-                          <td>{direccion.origen_data}</td>
-                          <td>{direccion.direccion}</td>
-                          <td>{direccion.descripcion_ubigeo}</td>
-                        </tr>
-                      ))
+                          <tr key={`ubigeo-${index}`}>
+                            <td>{direccion.fecha_data}</td>
+                            <td>{direccion.origen_data}</td>
+                            <td>{direccion.direccion}</td>
+                            <td>{direccion.descripcion_ubigeo}</td>
+                          </tr>
+                        ))
                       : null}
                   </tbody>
                 </table>
@@ -248,10 +285,10 @@ function SecDatosGenerales() {
                   <tbody>
                     {datosCorreos
                       ? datosCorreos.map((correo, index) => (
-                        <tr key={`correo-${index}`}>
-                          <td>{correo.correo}</td>
-                        </tr>
-                      ))
+                          <tr key={`correo-${index}`}>
+                            <td>{correo.correo}</td>
+                          </tr>
+                        ))
                       : null}
                   </tbody>
                 </table>
@@ -280,13 +317,13 @@ function SecDatosGenerales() {
                   <tbody>
                     {datosTelefonos
                       ? datosTelefonos.map((telefono, index) => (
-                        <tr key={`telefono-${index}`}>
-                          <td>{telefono.fecha_data}</td>
-                          <td>{telefono.telefono}</td>
-                          <td>{telefono.origen_data}</td>
-                          <td>{telefono.plan}</td>
-                        </tr>
-                      ))
+                          <tr key={`telefono-${index}`}>
+                            <td>{telefono.fecha_data}</td>
+                            <td>{telefono.telefono}</td>
+                            <td>{telefono.origen_data}</td>
+                            <td>{telefono.plan}</td>
+                          </tr>
+                        ))
                       : null}
                   </tbody>
                 </table>
@@ -301,50 +338,50 @@ function SecDatosGenerales() {
           <div className="collapse-title text-xl font-medium">Datos Sunat</div>
           {datosIndependientes
             ? datosIndependientes.map((independiente, index) => (
-              <div className="collapse-content" key={`correo-${index}`}>
-                <div className="card mt-2">
-                  <div className="row">
-                    <div className="flex">
-                      <div className="font-medium">RUC: </div>
-                      <div className="px-8">{independiente.ruc}</div>
-                    </div>
-                    <div className="flex">
-                      <div className="font-medium">Razon Social:</div>
-                      <div className="px-8">{independiente.razonsocial}</div>
-                    </div>
-                    <div className="flex">
-                      <div className="font-medium">Nombre Comercial:</div>
-                      <div className="px-8">
-                        {independiente.nombrecomercial}
+                <div className="collapse-content" key={`correo-${index}`}>
+                  <div className="card mt-2">
+                    <div className="row">
+                      <div className="flex">
+                        <div className="font-medium">RUC: </div>
+                        <div className="px-8">{independiente.ruc}</div>
                       </div>
-                    </div>
+                      <div className="flex">
+                        <div className="font-medium">Razon Social:</div>
+                        <div className="px-8">{independiente.razonsocial}</div>
+                      </div>
+                      <div className="flex">
+                        <div className="font-medium">Nombre Comercial:</div>
+                        <div className="px-8">
+                          {independiente.nombrecomercial}
+                        </div>
+                      </div>
 
-                    <div className="flex">
-                      <div className="font-medium">Giro:</div>
-                      <div className="px-8">{independiente.giro}</div>
-                    </div>
+                      <div className="flex">
+                        <div className="font-medium">Giro:</div>
+                        <div className="px-8">{independiente.giro}</div>
+                      </div>
 
-                    <div className="flex">
-                      <div className="font-medium">Estado :</div>
-                      <div className="px-8">{independiente.estado}</div>
-                    </div>
+                      <div className="flex">
+                        <div className="font-medium">Estado :</div>
+                        <div className="px-8">{independiente.estado}</div>
+                      </div>
 
-                    <div className="flex">
-                      <div className="font-medium">Tipo:</div>
-                      <div className="px-8">{independiente.tipo}</div>
-                    </div>
-                    <div className="flex">
-                      <div className="font-medium">Condicion:</div>
-                      <div className="px-8">{independiente.condicion}</div>
-                    </div>
-                    <div className="flex">
-                      <div className="font-medium">Estado:</div>
-                      <div className="px-8">{independiente.estado}</div>
+                      <div className="flex">
+                        <div className="font-medium">Tipo:</div>
+                        <div className="px-8">{independiente.tipo}</div>
+                      </div>
+                      <div className="flex">
+                        <div className="font-medium">Condicion:</div>
+                        <div className="px-8">{independiente.condicion}</div>
+                      </div>
+                      <div className="flex">
+                        <div className="font-medium">Estado:</div>
+                        <div className="px-8">{independiente.estado}</div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))
+              ))
             : null}
         </div>
       </div>
@@ -374,195 +411,195 @@ function SecDatosGenerales() {
                   <tbody>
                     {datosLaborales.mes1
                       ? datosLaborales.mes1.map((laboral, index) => (
-                        <tr key={`laboralmes1-${index}`}>
-                          <td>{laboral.ruc}</td>
-                          <td>{laboral.nombre_empresa}</td>
-                          <td>{laboral.fecha}</td>
-                          <td>{laboral.situacion}</td>
-                          <td>
-                            {String(Number(laboral.sueldo) * 55.55).substring(
-                              0,
-                              7
-                            )}
-                          </td>
-                        </tr>
-                      ))
+                          <tr key={`laboralmes1-${index}`}>
+                            <td>{laboral.ruc}</td>
+                            <td>{laboral.nombre_empresa}</td>
+                            <td>{laboral.fecha}</td>
+                            <td>{laboral.situacion}</td>
+                            <td>
+                              {String(Number(laboral.sueldo) * 55.55).substring(
+                                0,
+                                7
+                              )}
+                            </td>
+                          </tr>
+                        ))
                       : null}
                     {datosLaborales.mes2
                       ? datosLaborales.mes2.map((laboral, index) => (
-                        <tr key={`laboralmes1-${index}`}>
-                          <td>{laboral.ruc}</td>
-                          <td>{laboral.nombre_empresa}</td>
-                          <td>{laboral.fecha}</td>
-                          <td>{laboral.situacion}</td>
-                          <td>
-                            {String(Number(laboral.sueldo) * 55.55).substring(
-                              0,
-                              7
-                            )}
-                          </td>
-                        </tr>
-                      ))
+                          <tr key={`laboralmes1-${index}`}>
+                            <td>{laboral.ruc}</td>
+                            <td>{laboral.nombre_empresa}</td>
+                            <td>{laboral.fecha}</td>
+                            <td>{laboral.situacion}</td>
+                            <td>
+                              {String(Number(laboral.sueldo) * 55.55).substring(
+                                0,
+                                7
+                              )}
+                            </td>
+                          </tr>
+                        ))
                       : null}
                     {datosLaborales.mes3
                       ? datosLaborales.mes3.map((laboral, index) => (
-                        <tr key={`laboralmes1-${index}`}>
-                          <td>{laboral.ruc}</td>
-                          <td>{laboral.nombre_empresa}</td>
-                          <td>{laboral.fecha}</td>
-                          <td>{laboral.situacion}</td>
-                          <td>
-                            {String(Number(laboral.sueldo) * 55.55).substring(
-                              0,
-                              7
-                            )}
-                          </td>
-                        </tr>
-                      ))
+                          <tr key={`laboralmes1-${index}`}>
+                            <td>{laboral.ruc}</td>
+                            <td>{laboral.nombre_empresa}</td>
+                            <td>{laboral.fecha}</td>
+                            <td>{laboral.situacion}</td>
+                            <td>
+                              {String(Number(laboral.sueldo) * 55.55).substring(
+                                0,
+                                7
+                              )}
+                            </td>
+                          </tr>
+                        ))
                       : null}
                     {datosLaborales.mes4
                       ? datosLaborales.mes4.map((laboral, index) => (
-                        <tr key={`laboralmes1-${index}`}>
-                          <td>{laboral.ruc}</td>
-                          <td>{laboral.nombre_empresa}</td>
-                          <td>{laboral.fecha}</td>
-                          <td>{laboral.situacion}</td>
-                          <td>
-                            {String(Number(laboral.sueldo) * 55.55).substring(
-                              0,
-                              7
-                            )}
-                          </td>
-                        </tr>
-                      ))
+                          <tr key={`laboralmes1-${index}`}>
+                            <td>{laboral.ruc}</td>
+                            <td>{laboral.nombre_empresa}</td>
+                            <td>{laboral.fecha}</td>
+                            <td>{laboral.situacion}</td>
+                            <td>
+                              {String(Number(laboral.sueldo) * 55.55).substring(
+                                0,
+                                7
+                              )}
+                            </td>
+                          </tr>
+                        ))
                       : null}
                     {datosLaborales.mes5
                       ? datosLaborales.mes5.map((laboral, index) => (
-                        <tr key={`laboralmes1-${index}`}>
-                          <td>{laboral.ruc}</td>
-                          <td>{laboral.nombre_empresa}</td>
-                          <td>{laboral.fecha}</td>
-                          <td>{laboral.situacion}</td>
-                          <td>
-                            {String(Number(laboral.sueldo) * 55.55).substring(
-                              0,
-                              7
-                            )}
-                          </td>
-                        </tr>
-                      ))
+                          <tr key={`laboralmes1-${index}`}>
+                            <td>{laboral.ruc}</td>
+                            <td>{laboral.nombre_empresa}</td>
+                            <td>{laboral.fecha}</td>
+                            <td>{laboral.situacion}</td>
+                            <td>
+                              {String(Number(laboral.sueldo) * 55.55).substring(
+                                0,
+                                7
+                              )}
+                            </td>
+                          </tr>
+                        ))
                       : null}
                     {datosLaborales.mes6
                       ? datosLaborales.mes6.map((laboral, index) => (
-                        <tr key={`laboralmes1-${index}`}>
-                          <td>{laboral.ruc}</td>
-                          <td>{laboral.nombre_empresa}</td>
-                          <td>{laboral.fecha}</td>
-                          <td>{laboral.situacion}</td>
-                          <td>
-                            {String(Number(laboral.sueldo) * 55.55).substring(
-                              0,
-                              7
-                            )}
-                          </td>
-                        </tr>
-                      ))
+                          <tr key={`laboralmes1-${index}`}>
+                            <td>{laboral.ruc}</td>
+                            <td>{laboral.nombre_empresa}</td>
+                            <td>{laboral.fecha}</td>
+                            <td>{laboral.situacion}</td>
+                            <td>
+                              {String(Number(laboral.sueldo) * 55.55).substring(
+                                0,
+                                7
+                              )}
+                            </td>
+                          </tr>
+                        ))
                       : null}
                     {datosLaborales.mes7
                       ? datosLaborales.mes7.map((laboral, index) => (
-                        <tr key={`laboralmes1-${index}`}>
-                          <td>{laboral.ruc}</td>
-                          <td>{laboral.nombre_empresa}</td>
-                          <td>{laboral.fecha}</td>
-                          <td>{laboral.situacion}</td>
-                          <td>
-                            {String(Number(laboral.sueldo) * 55.55).substring(
-                              0,
-                              7
-                            )}
-                          </td>
-                        </tr>
-                      ))
+                          <tr key={`laboralmes1-${index}`}>
+                            <td>{laboral.ruc}</td>
+                            <td>{laboral.nombre_empresa}</td>
+                            <td>{laboral.fecha}</td>
+                            <td>{laboral.situacion}</td>
+                            <td>
+                              {String(Number(laboral.sueldo) * 55.55).substring(
+                                0,
+                                7
+                              )}
+                            </td>
+                          </tr>
+                        ))
                       : null}
                     {datosLaborales.mes8
                       ? datosLaborales.mes8.map((laboral, index) => (
-                        <tr key={`laboralmes1-${index}`}>
-                          <td>{laboral.ruc}</td>
-                          <td>{laboral.nombre_empresa}</td>
-                          <td>{laboral.fecha}</td>
-                          <td>{laboral.situacion}</td>
-                          <td>
-                            {String(Number(laboral.sueldo) * 55.55).substring(
-                              0,
-                              7
-                            )}
-                          </td>
-                        </tr>
-                      ))
+                          <tr key={`laboralmes1-${index}`}>
+                            <td>{laboral.ruc}</td>
+                            <td>{laboral.nombre_empresa}</td>
+                            <td>{laboral.fecha}</td>
+                            <td>{laboral.situacion}</td>
+                            <td>
+                              {String(Number(laboral.sueldo) * 55.55).substring(
+                                0,
+                                7
+                              )}
+                            </td>
+                          </tr>
+                        ))
                       : null}
                     {datosLaborales.mes9
                       ? datosLaborales.mes9.map((laboral, index) => (
-                        <tr key={`laboralmes1-${index}`}>
-                          <td>{laboral.ruc}</td>
-                          <td>{laboral.nombre_empresa}</td>
-                          <td>{laboral.fecha}</td>
-                          <td>{laboral.situacion}</td>
-                          <td>
-                            {String(Number(laboral.sueldo) * 55.55).substring(
-                              0,
-                              7
-                            )}
-                          </td>
-                        </tr>
-                      ))
+                          <tr key={`laboralmes1-${index}`}>
+                            <td>{laboral.ruc}</td>
+                            <td>{laboral.nombre_empresa}</td>
+                            <td>{laboral.fecha}</td>
+                            <td>{laboral.situacion}</td>
+                            <td>
+                              {String(Number(laboral.sueldo) * 55.55).substring(
+                                0,
+                                7
+                              )}
+                            </td>
+                          </tr>
+                        ))
                       : null}
                     {datosLaborales.mes10
                       ? datosLaborales.mes10.map((laboral, index) => (
-                        <tr key={`laboralmes1-${index}`}>
-                          <td>{laboral.ruc}</td>
-                          <td>{laboral.nombre_empresa}</td>
-                          <td>{laboral.fecha}</td>
-                          <td>{laboral.situacion}</td>
-                          <td>
-                            {String(Number(laboral.sueldo) * 55.55).substring(
-                              0,
-                              7
-                            )}
-                          </td>
-                        </tr>
-                      ))
+                          <tr key={`laboralmes1-${index}`}>
+                            <td>{laboral.ruc}</td>
+                            <td>{laboral.nombre_empresa}</td>
+                            <td>{laboral.fecha}</td>
+                            <td>{laboral.situacion}</td>
+                            <td>
+                              {String(Number(laboral.sueldo) * 55.55).substring(
+                                0,
+                                7
+                              )}
+                            </td>
+                          </tr>
+                        ))
                       : null}
                     {datosLaborales.mes11
                       ? datosLaborales.mes11.map((laboral, index) => (
-                        <tr key={`laboralmes1-${index}`}>
-                          <td>{laboral.ruc}</td>
-                          <td>{laboral.nombre_empresa}</td>
-                          <td>{laboral.fecha}</td>
-                          <td>{laboral.situacion}</td>
-                          <td>
-                            {String(Number(laboral.sueldo) * 55.55).substring(
-                              0,
-                              7
-                            )}
-                          </td>
-                        </tr>
-                      ))
+                          <tr key={`laboralmes1-${index}`}>
+                            <td>{laboral.ruc}</td>
+                            <td>{laboral.nombre_empresa}</td>
+                            <td>{laboral.fecha}</td>
+                            <td>{laboral.situacion}</td>
+                            <td>
+                              {String(Number(laboral.sueldo) * 55.55).substring(
+                                0,
+                                7
+                              )}
+                            </td>
+                          </tr>
+                        ))
                       : null}
                     {datosLaborales.mes12
                       ? datosLaborales.mes12.map((laboral, index) => (
-                        <tr key={`laboralmes1-${index}`}>
-                          <td>{laboral.ruc}</td>
-                          <td>{laboral.nombre_empresa}</td>
-                          <td>{laboral.fecha}</td>
-                          <td>{laboral.situacion}</td>
-                          <td>
-                            {String(Number(laboral.sueldo) * 55.55).substring(
-                              0,
-                              7
-                            )}
-                          </td>
-                        </tr>
-                      ))
+                          <tr key={`laboralmes1-${index}`}>
+                            <td>{laboral.ruc}</td>
+                            <td>{laboral.nombre_empresa}</td>
+                            <td>{laboral.fecha}</td>
+                            <td>{laboral.situacion}</td>
+                            <td>
+                              {String(Number(laboral.sueldo) * 55.55).substring(
+                                0,
+                                7
+                              )}
+                            </td>
+                          </tr>
+                        ))
                       : null}
                   </tbody>
                 </table>
@@ -606,22 +643,22 @@ function SecDatosGenerales() {
                   <tbody>
                     {datosHistorico
                       ? datosHistorico.map((historico, index) => (
-                        <tr key={`historico-${index}`}>
-                          <td>{historico.fecha_reporte_sbs}</td>
-                          <td>
-                            {historico.fecha_reporte_sbs.substring(4, 6)}
-                          </td>
-                          <td>{historico.cant_empresas}</td>
-                          <td>{historico.cant_empresas}</td>
-                          <td>{historico.deuda_total}</td>
-                          <td>{historico.disponible}</td>
-                          <td>{historico.calificacion_normal}</td>
-                          <td>{historico.calificacion_cpp}</td>
-                          <td>{historico.calificacion_deficiente}</td>
-                          <td>{historico.calificacion_dudoso}</td>
-                          <td>{historico.calificacion_perdida}</td>
-                        </tr>
-                      ))
+                          <tr key={`historico-${index}`}>
+                            <td>{historico.fecha_reporte_sbs}</td>
+                            <td>
+                              {historico.fecha_reporte_sbs.substring(4, 6)}
+                            </td>
+                            <td>{historico.cant_empresas}</td>
+                            <td>{historico.cant_empresas}</td>
+                            <td>{historico.deuda_total}</td>
+                            <td>{historico.disponible}</td>
+                            <td>{historico.calificacion_normal}</td>
+                            <td>{historico.calificacion_cpp}</td>
+                            <td>{historico.calificacion_deficiente}</td>
+                            <td>{historico.calificacion_dudoso}</td>
+                            <td>{historico.calificacion_perdida}</td>
+                          </tr>
+                        ))
                       : null}
                   </tbody>
                 </table>
@@ -654,13 +691,13 @@ function SecDatosGenerales() {
                   <tbody>
                     {datosDeudas
                       ? datosDeudas.map((deuda, index) => (
-                        <tr key={`deuda-${index}`}>
-                          <td>{deuda.empresa}</td>
-                          <td>{deuda.linea_otorgada}</td>
-                          <td>{deuda.linea_no_utilizada}</td>
-                          <td>{deuda.linea_utilizada}</td>
-                        </tr>
-                      ))
+                          <tr key={`deuda-${index}`}>
+                            <td>{deuda.empresa}</td>
+                            <td>{deuda.linea_otorgada}</td>
+                            <td>{deuda.linea_no_utilizada}</td>
+                            <td>{deuda.linea_utilizada}</td>
+                          </tr>
+                        ))
                       : null}
                   </tbody>
                 </table>
@@ -691,17 +728,17 @@ function SecDatosGenerales() {
                   <tbody>
                     {datosFamiliares
                       ? datosFamiliares.map((familiar, index) => (
-                        <tr key={`familiar-${index}`}>
-                          <td>{familiar.documento_familiar}</td>
-                          <td>
-                            {familiar.paterno_familiar}{" "}
-                            {familiar.materno_familiar}{" "}
-                            {familiar.nombres_familiar}
-                          </td>
-                          <td>{familiar.nacimiento_familiar}</td>
-                          <td>{familiar.tipo_relacion}</td>
-                        </tr>
-                      ))
+                          <tr key={`familiar-${index}`}>
+                            <td>{familiar.documento_familiar}</td>
+                            <td>
+                              {familiar.paterno_familiar}{" "}
+                              {familiar.materno_familiar}{" "}
+                              {familiar.nombres_familiar}
+                            </td>
+                            <td>{familiar.nacimiento_familiar}</td>
+                            <td>{familiar.tipo_relacion}</td>
+                          </tr>
+                        ))
                       : null}
                   </tbody>
                 </table>
@@ -739,18 +776,18 @@ function SecDatosGenerales() {
                   <tbody>
                     {datosResumen
                       ? datosResumen.map((resumen, index) => (
-                        <tr key={`resumen-${index}`}>
-                          <td>{resumen.entidad}</td>
-                          <td>{resumen.linea_aprobada}</td>
-                          <td>{resumen.prestamo}</td>
-                          <td>{resumen.tarjeta}</td>
-                          <td>{resumen.vehicular}</td>
-                          <td>{resumen.hipotecario}</td>
-                          <td>{resumen.comercial}</td>
-                          <td>{resumen.otros}</td>
-                          <td>{resumen.linea_disponible}</td>
-                        </tr>
-                      ))
+                          <tr key={`resumen-${index}`}>
+                            <td>{resumen.entidad}</td>
+                            <td>{resumen.linea_aprobada}</td>
+                            <td>{resumen.prestamo}</td>
+                            <td>{resumen.tarjeta}</td>
+                            <td>{resumen.vehicular}</td>
+                            <td>{resumen.hipotecario}</td>
+                            <td>{resumen.comercial}</td>
+                            <td>{resumen.otros}</td>
+                            <td>{resumen.linea_disponible}</td>
+                          </tr>
+                        ))
                       : null}
                   </tbody>
                 </table>
@@ -762,7 +799,6 @@ function SecDatosGenerales() {
     </div>
   );
 }
-
 interface datosGeneralesProps {
   nombres: string;
   paterno: string;

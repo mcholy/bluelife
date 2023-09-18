@@ -16,7 +16,7 @@ namespace BlueLife.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> Refresh([FromBody] TokenDto tokenDto)
         {
-            var tokenDtoToReturn = await _service.AuthenticationService.RefreshToken(tokenDto);
+           var tokenDtoToReturn = await _service.AuthenticationService.RefreshToken(tokenDto);
             return Ok(tokenDtoToReturn);
         }
     }

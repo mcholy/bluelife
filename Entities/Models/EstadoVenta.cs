@@ -7,20 +7,19 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    public class RepartoDetalle
+    public class EstadoVenta
     {
         public Guid Id { get; set; }
-        [ForeignKey(nameof(Reparto))]
-        public Guid RepartoId { get; set; }
-        [ForeignKey(nameof(Producto))]
-        public Guid ProductoId { get; set; }    
-        public decimal Cantidad { get; set; }   
+        [ForeignKey(nameof(Empresa))]
+        public Guid EmpresaId { get; set; }
+        public string? Nombre { get; set; }
+        public string? Descripcion { get; set; }
         public DateTime DateEntry { get; set; }
         public DateTime? DateModify { get; set; }
         public Guid IdUserEntry { get; set; }
         public Guid? IdUserModify { get; set; }
         public string? Estado { get; set; }
-        public Reparto? Reparto { get; set; }
-        public Producto? Producto { get; set; }
+        public Empresa? Empresa { get; set; }
+        public ICollection<Venta>? Ventas { get; set; }
     }
 }

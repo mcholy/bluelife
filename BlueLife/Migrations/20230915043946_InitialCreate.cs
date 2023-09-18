@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BlueLife.Migrations
 {
-    public partial class InitialCreateAndAdditionalUserFieldsForRefreshToken : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,41 +39,21 @@ namespace BlueLife.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Personas",
+                name: "Empresas",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Nombre = table.Column<string>(type: "varchar(60)", maxLength: 60, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ApPaterno = table.Column<string>(type: "longtext", nullable: true)
+                    Celular = table.Column<string>(type: "varchar(60)", maxLength: 60, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ApMaterno = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Documento = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Celular = table.Column<string>(type: "longtext", nullable: true)
+                    Telefono = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Direccion = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    DateEntry = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    DateModify = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IdUserEntry = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
-                    IdUserModify = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
-                    Estado = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Personas", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Productos",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                    Ruc = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Pais = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DateEntry = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     DateModify = table.Column<DateTime>(type: "datetime(6)", nullable: true),
@@ -84,47 +64,7 @@ namespace BlueLife.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Productos", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "TipoMovimientos",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    DateEntry = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    DateModify = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IdUserEntry = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    IdUserModify = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
-                    Estado = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TipoMovimientos", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "TipoTrabajadores",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Nombre = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    DateEntry = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    DateModify = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IdUserEntry = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    IdUserModify = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
-                    Estado = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TipoTrabajadores", x => x.Id);
+                    table.PrimaryKey("PK_Empresas", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -148,6 +88,159 @@ namespace BlueLife.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "EstadoVentas",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    EmpresaId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Descripcion = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DateEntry = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DateModify = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    IdUserEntry = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    IdUserModify = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    Estado = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EstadoVentas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EstadoVentas_Empresas_EmpresaId",
+                        column: x => x.EmpresaId,
+                        principalTable: "Empresas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Personas",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    EmpresaId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ApPaterno = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ApMaterno = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Documento = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Email = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Celular = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Direccion = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    FechaNacimiento = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    DateEntry = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DateModify = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    IdUserEntry = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    IdUserModify = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    Estado = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Personas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Personas_Empresas_EmpresaId",
+                        column: x => x.EmpresaId,
+                        principalTable: "Empresas",
+                        principalColumn: "Id");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Productos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    EmpresaId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DateEntry = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DateModify = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    IdUserEntry = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    IdUserModify = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    Estado = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Productos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Productos_Empresas_EmpresaId",
+                        column: x => x.EmpresaId,
+                        principalTable: "Empresas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "TipoMovimientos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    EmpresaId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Descripcion = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DateEntry = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DateModify = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    IdUserEntry = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    IdUserModify = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    Estado = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TipoMovimientos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TipoMovimientos_Empresas_EmpresaId",
+                        column: x => x.EmpresaId,
+                        principalTable: "Empresas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "TipoTrabajadores",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Nombre = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    EmpresaId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Descripcion = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DateEntry = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DateModify = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    IdUserEntry = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    IdUserModify = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    Estado = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TipoTrabajadores", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TipoTrabajadores_Empresas_EmpresaId",
+                        column: x => x.EmpresaId,
+                        principalTable: "Empresas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -210,9 +303,7 @@ namespace BlueLife.Migrations
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     PersonaId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    ProductoId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    DiasRecompra = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    EmpresaId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Referencia = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Localizacion = table.Column<string>(type: "longtext", nullable: true)
@@ -228,15 +319,15 @@ namespace BlueLife.Migrations
                 {
                     table.PrimaryKey("PK_Clientes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Clientes_Personas_PersonaId",
-                        column: x => x.PersonaId,
-                        principalTable: "Personas",
+                        name: "FK_Clientes_Empresas_EmpresaId",
+                        column: x => x.EmpresaId,
+                        principalTable: "Empresas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Clientes_Productos_ProductoId",
-                        column: x => x.ProductoId,
-                        principalTable: "Productos",
+                        name: "FK_Clientes_Personas_PersonaId",
+                        column: x => x.PersonaId,
+                        principalTable: "Personas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -283,9 +374,10 @@ namespace BlueLife.Migrations
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     PersonaId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    TipoTrabajadorId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    EmpresaId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Alias = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    TipoTrabajadorId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     DateEntry = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     DateModify = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     IdUserEntry = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -296,6 +388,12 @@ namespace BlueLife.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Trabajadores", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Trabajadores_Empresas_EmpresaId",
+                        column: x => x.EmpresaId,
+                        principalTable: "Empresas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Trabajadores_Personas_PersonaId",
                         column: x => x.PersonaId,
@@ -414,18 +512,13 @@ namespace BlueLife.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Repartos",
+                name: "FavoritoProductos",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     ClienteId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    TrabajadorId = table.Column<string>(type: "varchar(255)", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    FechaEntrega = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Comentario = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    EstadoReparto = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ProductoId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    DiasRecompra = table.Column<int>(type: "int", nullable: true),
                     DateEntry = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     DateModify = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     IdUserEntry = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -435,27 +528,69 @@ namespace BlueLife.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Repartos", x => x.Id);
+                    table.PrimaryKey("PK_FavoritoProductos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Repartos_AspNetUsers_TrabajadorId",
-                        column: x => x.TrabajadorId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Repartos_Clientes_ClienteId",
+                        name: "FK_FavoritoProductos_Clientes_ClienteId",
                         column: x => x.ClienteId,
                         principalTable: "Clientes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FavoritoProductos_Productos_ProductoId",
+                        column: x => x.ProductoId,
+                        principalTable: "Productos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "RepartoDetalles",
+                name: "Ventas",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    RepartoId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ClienteId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    TrabajadorId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    IdEstadoVenta = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Comentario = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    FechaEntrega = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    DateEntry = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DateModify = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    IdUserEntry = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    IdUserModify = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    Estado = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ventas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ventas_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Ventas_EstadoVentas_IdEstadoVenta",
+                        column: x => x.IdEstadoVenta,
+                        principalTable: "EstadoVentas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Ventas_Trabajadores_TrabajadorId",
+                        column: x => x.TrabajadorId,
+                        principalTable: "Trabajadores",
+                        principalColumn: "Id");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "VentaDetalles",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    VentaId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     ProductoId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Cantidad = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     DateEntry = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -467,17 +602,17 @@ namespace BlueLife.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RepartoDetalles", x => x.Id);
+                    table.PrimaryKey("PK_VentaDetalles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RepartoDetalles_Productos_ProductoId",
+                        name: "FK_VentaDetalles_Productos_ProductoId",
                         column: x => x.ProductoId,
                         principalTable: "Productos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RepartoDetalles_Repartos_RepartoId",
-                        column: x => x.RepartoId,
-                        principalTable: "Repartos",
+                        name: "FK_VentaDetalles_Ventas_VentaId",
+                        column: x => x.VentaId,
+                        principalTable: "Ventas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -486,17 +621,17 @@ namespace BlueLife.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "DateEntry", "DateModify", "Estado", "IdUserEntry", "IdUserModify", "Name", "NormalizedName" },
-                values: new object[] { "8e79dfae-f1e5-4b0d-90a1-934bf8865def", "783ccdf7-85fe-4a10-a705-130bf0f79a1c", new DateTime(2023, 9, 4, 2, 51, 19, 311, DateTimeKind.Utc).AddTicks(8472), null, "A", new Guid("80abbca8-664d-4b20-b5de-024705497d4a"), null, "Manager", "MANAGER" });
+                values: new object[] { "2ae5f2ce-ad31-4a0f-bb6c-a3094aceb70b", "9478dd67-ae07-4bad-8851-c959697725b5", new DateTime(2023, 9, 15, 4, 39, 46, 343, DateTimeKind.Utc).AddTicks(9889), null, "A", new Guid("80abbca8-664d-4b20-b5de-024705497d4a"), null, "Manager", "MANAGER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "DateEntry", "DateModify", "Estado", "IdUserEntry", "IdUserModify", "Name", "NormalizedName" },
-                values: new object[] { "f2fc4450-4b62-42be-b22d-d84b96f6531a", "7b96920d-f844-436b-96ed-530edd8086a1", new DateTime(2023, 9, 4, 2, 51, 19, 311, DateTimeKind.Utc).AddTicks(8491), null, "A", new Guid("80abbca8-664d-4b20-b5de-024705497d4a"), null, "Administrator", "ADMINISTRATOR" });
+                values: new object[] { "af815f23-c037-44a9-accb-df6f0547a4a1", "1f85d915-7200-4e9b-808f-e9225688358f", new DateTime(2023, 9, 15, 4, 39, 46, 343, DateTimeKind.Utc).AddTicks(9898), null, "A", new Guid("80abbca8-664d-4b20-b5de-024705497d4a"), null, "Administrator", "ADMINISTRATOR" });
 
             migrationBuilder.InsertData(
                 table: "Personas",
-                columns: new[] { "Id", "ApMaterno", "ApPaterno", "Celular", "DateEntry", "DateModify", "Direccion", "Documento", "Estado", "IdUserEntry", "IdUserModify", "Nombre" },
-                values: new object[] { new Guid("80abbca8-664d-4b20-b5de-024705497d4a"), null, null, "999999999", new DateTime(2023, 9, 4, 2, 51, 19, 311, DateTimeKind.Utc).AddTicks(8241), null, "Internet", "00000000", "A", new Guid("80abbca8-664d-4b20-b5de-024705497d4a"), null, "Administrator" });
+                columns: new[] { "Id", "ApMaterno", "ApPaterno", "Celular", "DateEntry", "DateModify", "Direccion", "Documento", "Email", "EmpresaId", "Estado", "FechaNacimiento", "IdUserEntry", "IdUserModify", "Nombre" },
+                values: new object[] { new Guid("80abbca8-664d-4b20-b5de-024705497d4a"), null, null, "999999999", new DateTime(2023, 9, 15, 4, 39, 46, 343, DateTimeKind.Utc).AddTicks(8933), null, "Internet", "00000000", null, null, "A", null, new Guid("80abbca8-664d-4b20-b5de-024705497d4a"), null, "Administrator" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -542,14 +677,29 @@ namespace BlueLife.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Clientes_EmpresaId",
+                table: "Clientes",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Clientes_PersonaId",
                 table: "Clientes",
                 column: "PersonaId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clientes_ProductoId",
-                table: "Clientes",
+                name: "IX_EstadoVentas_EmpresaId",
+                table: "EstadoVentas",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FavoritoProductos_ClienteId",
+                table: "FavoritoProductos",
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FavoritoProductos_ProductoId",
+                table: "FavoritoProductos",
                 column: "ProductoId");
 
             migrationBuilder.CreateIndex(
@@ -563,24 +713,29 @@ namespace BlueLife.Migrations
                 column: "TipoMovimientoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RepartoDetalles_ProductoId",
-                table: "RepartoDetalles",
-                column: "ProductoId");
+                name: "IX_Personas_EmpresaId",
+                table: "Personas",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RepartoDetalles_RepartoId",
-                table: "RepartoDetalles",
-                column: "RepartoId");
+                name: "IX_Productos_EmpresaId",
+                table: "Productos",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Repartos_ClienteId",
-                table: "Repartos",
-                column: "ClienteId");
+                name: "IX_TipoMovimientos_EmpresaId",
+                table: "TipoMovimientos",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Repartos_TrabajadorId",
-                table: "Repartos",
-                column: "TrabajadorId");
+                name: "IX_TipoTrabajadores_EmpresaId",
+                table: "TipoTrabajadores",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trabajadores_EmpresaId",
+                table: "Trabajadores",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trabajadores_PersonaId",
@@ -592,6 +747,31 @@ namespace BlueLife.Migrations
                 name: "IX_Trabajadores_TipoTrabajadorId",
                 table: "Trabajadores",
                 column: "TipoTrabajadorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VentaDetalles_ProductoId",
+                table: "VentaDetalles",
+                column: "ProductoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VentaDetalles_VentaId",
+                table: "VentaDetalles",
+                column: "VentaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ventas_ClienteId",
+                table: "Ventas",
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ventas_IdEstadoVenta",
+                table: "Ventas",
+                column: "IdEstadoVenta");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ventas_TrabajadorId",
+                table: "Ventas",
+                column: "TrabajadorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -612,37 +792,46 @@ namespace BlueLife.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "FavoritoProductos");
+
+            migrationBuilder.DropTable(
                 name: "Movimientos");
 
             migrationBuilder.DropTable(
-                name: "RepartoDetalles");
-
-            migrationBuilder.DropTable(
-                name: "Trabajadores");
+                name: "VentaDetalles");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "TipoMovimientos");
 
             migrationBuilder.DropTable(
-                name: "Repartos");
+                name: "Productos");
 
             migrationBuilder.DropTable(
-                name: "TipoTrabajadores");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Ventas");
 
             migrationBuilder.DropTable(
                 name: "Clientes");
 
             migrationBuilder.DropTable(
+                name: "EstadoVentas");
+
+            migrationBuilder.DropTable(
+                name: "Trabajadores");
+
+            migrationBuilder.DropTable(
                 name: "Personas");
 
             migrationBuilder.DropTable(
-                name: "Productos");
+                name: "TipoTrabajadores");
+
+            migrationBuilder.DropTable(
+                name: "Empresas");
         }
     }
 }

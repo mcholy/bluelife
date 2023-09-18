@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MongoDB.Driver;
 using Repository;
 using Serilog;
 using Service;
@@ -133,6 +134,13 @@ namespace BlueLife.Extensions
             {
                 dataProtectionBuilder.ProtectKeysWithDpapi();
             }
+        }
+
+        public static void ConfigureNoSqlDB(this IServiceCollection services, IConfiguration configuration)
+        {
+            var noSqlConfiguration = new NoSqlConfiguration();
+            configuration.Bind(noSqlConfiguration.Section, noSqlConfiguration);
+            services.AddSingleton<IMongoClient>(new MongoClient(configuration.GetConnectionString(noSqlConfiguration.ConnectionStringName!)));
         }
         #endregion
     }
