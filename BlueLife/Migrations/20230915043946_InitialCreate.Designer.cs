@@ -11,8 +11,8 @@ using Repository;
 namespace BlueLife.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230904025122_InitialCreateAndAdditionalUserFieldsForRefreshToken")]
-    partial class InitialCreateAndAdditionalUserFieldsForRefreshToken
+    [Migration("20230915043946_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,8 +33,8 @@ namespace BlueLife.Migrations
                     b.Property<DateTime?>("DateModify")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("DiasRecompra")
-                        .HasColumnType("longtext");
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Estado")
                         .HasColumnType("longtext");
@@ -51,20 +51,141 @@ namespace BlueLife.Migrations
                     b.Property<Guid>("PersonaId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("ProductoId")
-                        .HasColumnType("char(36)");
-
                     b.Property<string>("Referencia")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("PersonaId")
                         .IsUnique();
 
+                    b.ToTable("Clientes");
+                });
+
+            modelBuilder.Entity("Entities.Models.Empresa", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Celular")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("varchar(60)");
+
+                    b.Property<DateTime>("DateEntry")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DateModify")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Direccion")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Estado")
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("IdUserEntry")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid?>("IdUserModify")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("varchar(60)");
+
+                    b.Property<string>("Pais")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Ruc")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Telefono")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Empresas");
+                });
+
+            modelBuilder.Entity("Entities.Models.EstadoVenta", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("DateEntry")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DateModify")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Estado")
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("IdUserEntry")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid?>("IdUserModify")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.ToTable("EstadoVentas");
+                });
+
+            modelBuilder.Entity("Entities.Models.FavoritoProducto", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ClienteId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("DateEntry")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DateModify")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("DiasRecompra")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Estado")
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("IdUserEntry")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid?>("IdUserModify")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ProductoId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
                     b.HasIndex("ProductoId");
 
-                    b.ToTable("Clientes");
+                    b.ToTable("FavoritoProductos");
                 });
 
             modelBuilder.Entity("Entities.Models.Movimiento", b =>
@@ -136,8 +257,17 @@ namespace BlueLife.Migrations
                     b.Property<string>("Documento")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid?>("EmpresaId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("Estado")
                         .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("FechaNacimiento")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<Guid?>("IdUserEntry")
                         .HasColumnType("char(36)");
@@ -150,6 +280,8 @@ namespace BlueLife.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpresaId");
+
                     b.ToTable("Personas");
 
                     b.HasData(
@@ -157,7 +289,7 @@ namespace BlueLife.Migrations
                         {
                             Id = new Guid("80abbca8-664d-4b20-b5de-024705497d4a"),
                             Celular = "999999999",
-                            DateEntry = new DateTime(2023, 9, 4, 2, 51, 19, 311, DateTimeKind.Utc).AddTicks(8241),
+                            DateEntry = new DateTime(2023, 9, 15, 4, 39, 46, 343, DateTimeKind.Utc).AddTicks(8933),
                             Direccion = "Internet",
                             Documento = "00000000",
                             Estado = "A",
@@ -178,6 +310,9 @@ namespace BlueLife.Migrations
                     b.Property<DateTime?>("DateModify")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("Estado")
                         .HasColumnType("longtext");
 
@@ -192,91 +327,9 @@ namespace BlueLife.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpresaId");
+
                     b.ToTable("Productos");
-                });
-
-            modelBuilder.Entity("Entities.Models.Venta", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("ClienteId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("Comentario")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("DateEntry")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("DateModify")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Estado")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("EstadoVenta")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("FechaEntrega")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid>("IdUserEntry")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid?>("IdUserModify")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("TrabajadorId")
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClienteId");
-
-                    b.HasIndex("TrabajadorId");
-
-                    b.ToTable("Ventas");
-                });
-
-            modelBuilder.Entity("Entities.Models.VentaDetalle", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<decimal>("Cantidad")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<DateTime>("DateEntry")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("DateModify")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Estado")
-                        .HasColumnType("longtext");
-
-                    b.Property<Guid>("IdUserEntry")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid?>("IdUserModify")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("ProductoId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("VentaId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductoId");
-
-                    b.HasIndex("VentaId");
-
-                    b.ToTable("VentaDetalles");
                 });
 
             modelBuilder.Entity("Entities.Models.TipoMovimiento", b =>
@@ -291,6 +344,12 @@ namespace BlueLife.Migrations
                     b.Property<DateTime?>("DateModify")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("Estado")
                         .HasColumnType("longtext");
 
@@ -304,6 +363,8 @@ namespace BlueLife.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
 
                     b.ToTable("TipoMovimientos");
                 });
@@ -320,6 +381,12 @@ namespace BlueLife.Migrations
                     b.Property<DateTime?>("DateModify")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("Estado")
                         .HasColumnType("longtext");
 
@@ -333,6 +400,8 @@ namespace BlueLife.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
 
                     b.ToTable("TipoTrabajadores");
                 });
@@ -380,9 +449,9 @@ namespace BlueLife.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8e79dfae-f1e5-4b0d-90a1-934bf8865def",
-                            ConcurrencyStamp = "783ccdf7-85fe-4a10-a705-130bf0f79a1c",
-                            DateEntry = new DateTime(2023, 9, 4, 2, 51, 19, 311, DateTimeKind.Utc).AddTicks(8472),
+                            Id = "2ae5f2ce-ad31-4a0f-bb6c-a3094aceb70b",
+                            ConcurrencyStamp = "9478dd67-ae07-4bad-8851-c959697725b5",
+                            DateEntry = new DateTime(2023, 9, 15, 4, 39, 46, 343, DateTimeKind.Utc).AddTicks(9889),
                             Estado = "A",
                             IdUserEntry = new Guid("80abbca8-664d-4b20-b5de-024705497d4a"),
                             Name = "Manager",
@@ -390,9 +459,9 @@ namespace BlueLife.Migrations
                         },
                         new
                         {
-                            Id = "f2fc4450-4b62-42be-b22d-d84b96f6531a",
-                            ConcurrencyStamp = "7b96920d-f844-436b-96ed-530edd8086a1",
-                            DateEntry = new DateTime(2023, 9, 4, 2, 51, 19, 311, DateTimeKind.Utc).AddTicks(8491),
+                            Id = "af815f23-c037-44a9-accb-df6f0547a4a1",
+                            ConcurrencyStamp = "1f85d915-7200-4e9b-808f-e9225688358f",
+                            DateEntry = new DateTime(2023, 9, 15, 4, 39, 46, 343, DateTimeKind.Utc).AddTicks(9898),
                             Estado = "A",
                             IdUserEntry = new Guid("80abbca8-664d-4b20-b5de-024705497d4a"),
                             Name = "Administrator",
@@ -415,6 +484,9 @@ namespace BlueLife.Migrations
                     b.Property<DateTime?>("DateModify")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("Estado")
                         .HasColumnType("longtext");
 
@@ -431,6 +503,8 @@ namespace BlueLife.Migrations
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("PersonaId")
                         .IsUnique();
@@ -529,6 +603,92 @@ namespace BlueLife.Migrations
                         .IsUnique();
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Entities.Models.Venta", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ClienteId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Comentario")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("DateEntry")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DateModify")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Estado")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("FechaEntrega")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("IdEstadoVenta")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("IdUserEntry")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid?>("IdUserModify")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid?>("TrabajadorId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("IdEstadoVenta");
+
+                    b.HasIndex("TrabajadorId");
+
+                    b.ToTable("Ventas");
+                });
+
+            modelBuilder.Entity("Entities.Models.VentaDetalle", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<decimal>("Cantidad")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<DateTime>("DateEntry")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DateModify")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Estado")
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("IdUserEntry")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid?>("IdUserModify")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ProductoId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("VentaId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductoId");
+
+                    b.HasIndex("VentaId");
+
+                    b.ToTable("VentaDetalles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -635,19 +795,49 @@ namespace BlueLife.Migrations
 
             modelBuilder.Entity("Entities.Models.Cliente", b =>
                 {
+                    b.HasOne("Entities.Models.Empresa", "Empresa")
+                        .WithMany("Clientes")
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Entities.Models.Persona", "Persona")
                         .WithOne("Cliente")
                         .HasForeignKey("Entities.Models.Cliente", "PersonaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Empresa");
+
+                    b.Navigation("Persona");
+                });
+
+            modelBuilder.Entity("Entities.Models.EstadoVenta", b =>
+                {
+                    b.HasOne("Entities.Models.Empresa", "Empresa")
+                        .WithMany("EstadoVentas")
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+                });
+
+            modelBuilder.Entity("Entities.Models.FavoritoProducto", b =>
+                {
+                    b.HasOne("Entities.Models.Cliente", "Cliente")
+                        .WithMany("FavoritoProductos")
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Entities.Models.Producto", "Producto")
-                        .WithMany("Clientes")
+                        .WithMany("FavoritoProductos")
                         .HasForeignKey("ProductoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Persona");
+                    b.Navigation("Cliente");
 
                     b.Navigation("Producto");
                 });
@@ -671,21 +861,109 @@ namespace BlueLife.Migrations
                     b.Navigation("TipoMovimiento");
                 });
 
+            modelBuilder.Entity("Entities.Models.Persona", b =>
+                {
+                    b.HasOne("Entities.Models.Empresa", "Empresa")
+                        .WithMany("Personas")
+                        .HasForeignKey("EmpresaId");
+
+                    b.Navigation("Empresa");
+                });
+
+            modelBuilder.Entity("Entities.Models.Producto", b =>
+                {
+                    b.HasOne("Entities.Models.Empresa", "Empresa")
+                        .WithMany("Productos")
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+                });
+
+            modelBuilder.Entity("Entities.Models.TipoMovimiento", b =>
+                {
+                    b.HasOne("Entities.Models.Empresa", "Empresa")
+                        .WithMany("TipoMovimientos")
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+                });
+
+            modelBuilder.Entity("Entities.Models.TipoTrabajador", b =>
+                {
+                    b.HasOne("Entities.Models.Empresa", "Empresa")
+                        .WithMany("TipoTrabajadores")
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+                });
+
+            modelBuilder.Entity("Entities.Models.Trabajador", b =>
+                {
+                    b.HasOne("Entities.Models.Empresa", "Empresa")
+                        .WithMany("Trabajadores")
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.Persona", "Persona")
+                        .WithOne("Trabajador")
+                        .HasForeignKey("Entities.Models.Trabajador", "PersonaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.TipoTrabajador", "TipoTrabajador")
+                        .WithMany("Trabajadores")
+                        .HasForeignKey("TipoTrabajadorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+
+                    b.Navigation("Persona");
+
+                    b.Navigation("TipoTrabajador");
+                });
+
+            modelBuilder.Entity("Entities.Models.Usuario", b =>
+                {
+                    b.HasOne("Entities.Models.Persona", "Persona")
+                        .WithOne("Usuario")
+                        .HasForeignKey("Entities.Models.Usuario", "PersonaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Persona");
+                });
+
             modelBuilder.Entity("Entities.Models.Venta", b =>
                 {
                     b.HasOne("Entities.Models.Cliente", "Cliente")
-                        .WithMany()
+                        .WithMany("Ventas")
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.Usuario", "Usuario")
-                        .WithMany()
+                    b.HasOne("Entities.Models.EstadoVenta", "EstadoVenta")
+                        .WithMany("Ventas")
+                        .HasForeignKey("IdEstadoVenta")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.Trabajador", "Trabajador")
+                        .WithMany("Ventas")
                         .HasForeignKey("TrabajadorId");
 
                     b.Navigation("Cliente");
 
-                    b.Navigation("Usuario");
+                    b.Navigation("EstadoVenta");
+
+                    b.Navigation("Trabajador");
                 });
 
             modelBuilder.Entity("Entities.Models.VentaDetalle", b =>
@@ -705,36 +983,6 @@ namespace BlueLife.Migrations
                     b.Navigation("Producto");
 
                     b.Navigation("Venta");
-                });
-
-            modelBuilder.Entity("Entities.Models.Trabajador", b =>
-                {
-                    b.HasOne("Entities.Models.Persona", "Persona")
-                        .WithOne("Trabajador")
-                        .HasForeignKey("Entities.Models.Trabajador", "PersonaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Models.TipoTrabajador", "TipoTrabajador")
-                        .WithMany("Trabajadores")
-                        .HasForeignKey("TipoTrabajadorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Persona");
-
-                    b.Navigation("TipoTrabajador");
-                });
-
-            modelBuilder.Entity("Entities.Models.Usuario", b =>
-                {
-                    b.HasOne("Entities.Models.Persona", "Persona")
-                        .WithOne("Usuario")
-                        .HasForeignKey("Entities.Models.Usuario", "PersonaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Persona");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -788,6 +1036,35 @@ namespace BlueLife.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Entities.Models.Cliente", b =>
+                {
+                    b.Navigation("FavoritoProductos");
+
+                    b.Navigation("Ventas");
+                });
+
+            modelBuilder.Entity("Entities.Models.Empresa", b =>
+                {
+                    b.Navigation("Clientes");
+
+                    b.Navigation("EstadoVentas");
+
+                    b.Navigation("Personas");
+
+                    b.Navigation("Productos");
+
+                    b.Navigation("TipoMovimientos");
+
+                    b.Navigation("TipoTrabajadores");
+
+                    b.Navigation("Trabajadores");
+                });
+
+            modelBuilder.Entity("Entities.Models.EstadoVenta", b =>
+                {
+                    b.Navigation("Ventas");
+                });
+
             modelBuilder.Entity("Entities.Models.Persona", b =>
                 {
                     b.Navigation("Cliente");
@@ -799,15 +1076,10 @@ namespace BlueLife.Migrations
 
             modelBuilder.Entity("Entities.Models.Producto", b =>
                 {
-                    b.Navigation("Clientes");
+                    b.Navigation("FavoritoProductos");
 
                     b.Navigation("Movimientos");
 
-                    b.Navigation("VentaDetalles");
-                });
-
-            modelBuilder.Entity("Entities.Models.Venta", b =>
-                {
                     b.Navigation("VentaDetalles");
                 });
 
@@ -819,6 +1091,16 @@ namespace BlueLife.Migrations
             modelBuilder.Entity("Entities.Models.TipoTrabajador", b =>
                 {
                     b.Navigation("Trabajadores");
+                });
+
+            modelBuilder.Entity("Entities.Models.Trabajador", b =>
+                {
+                    b.Navigation("Ventas");
+                });
+
+            modelBuilder.Entity("Entities.Models.Venta", b =>
+                {
+                    b.Navigation("VentaDetalles");
                 });
 #pragma warning restore 612, 618
         }

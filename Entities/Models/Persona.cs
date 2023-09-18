@@ -11,8 +11,10 @@ namespace Entities.Models
         public string? ApPaterno { get; set; }
         public string? ApMaterno { get; set; }
         public string? Documento { get; set; }
+        public string? Email { get; set; }
         public string? Celular { get; set; }
         public string? Direccion { get; set; }
+        public DateTime? FechaNacimiento { get; set; }
         public DateTime DateEntry { get; set; }
         public DateTime? DateModify { get; set; }
         public Guid? IdUserEntry { get; set; }

@@ -11,8 +11,8 @@ namespace Repository.Extensions
         {
             if (string.IsNullOrWhiteSpace(searchTerm)) return personas;
             var lowerCaseTerm = searchTerm.Trim().ToLower();
-            return personas.Where(e => e.Nombre!.ToLower().Contains(lowerCaseTerm) || e.ApMaterno!.ToLower().Contains(lowerCaseTerm)
-            || e.ApMaterno.ToLower().Contains(lowerCaseTerm));
+            return personas.Where(e => e.Nombre!.ToLower().Contains(lowerCaseTerm) || e.ApPaterno!.ToLower().Contains(lowerCaseTerm)
+            || e.ApMaterno!.ToLower().Contains(lowerCaseTerm) || e.Documento!.ToLower().Contains(lowerCaseTerm));
         }
     }
 }

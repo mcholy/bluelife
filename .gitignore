@@ -504,3 +504,6 @@ dist-ssr
 /.containers/myapp
 /BlueLife/.containers/keys
 /.containers/mongodb
+.env
+.env.development
+.env.production

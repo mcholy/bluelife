@@ -1,6 +1,5 @@
 ﻿using Contracts.IService;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DataTransferObjects;
 using Shared.RequestFeatures;
@@ -20,7 +19,7 @@ namespace BlueLife.Controllers
         }
 
         [HttpGet(Name = "GetPersonas")]
-        [Authorize(Roles = "Manager")]
+        //[Authorize(Roles = "Manager, Administrator")]
         [Authorize]
         public async Task<IActionResult> GetPersonas([FromQuery] PersonaParameters personaParameters)
         {

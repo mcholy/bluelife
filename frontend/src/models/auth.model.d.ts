@@ -17,3 +17,13 @@ export interface userDTO {
   id: string;
   userName: string;
 }
+
+export interface tokensDTO {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface claimsResponse {
+  claims: claims[];
+  expired: boolean;
+}

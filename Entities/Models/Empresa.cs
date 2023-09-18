@@ -21,7 +21,6 @@ namespace Entities.Models
         public Guid IdUserEntry { get; set; }
         public Guid? IdUserModify { get; set; }
         public string? Estado { get; set; }
-        public ICollection<Usuario>? Usuarios { get; set; }
         public ICollection<Trabajador>? Trabajadores { get; set; }
         public ICollection<TipoTrabajador>? TipoTrabajadores { get; set; }
         public ICollection<TipoMovimiento>? TipoMovimientos { get; set; }
