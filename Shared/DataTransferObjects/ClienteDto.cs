@@ -1,6 +1,6 @@
 ﻿namespace Shared.DataTransferObjects
 {
-    public class ClienteDto
+    public record ClienteDto
     {
         public Guid Id { get; init; }
         public string? Nombre { get; init; }
@@ -9,7 +9,7 @@
         public string? Documento { get; init; }
         public string? Celular { get; init; }
         public string? Direccion { get; init; }
-        public Guid IdProducto { get; init; }
+        public Guid ProductoId { get; init; }
         public string? DiasRecompra { get; init; }
         public string? Referencia { get; init; }
         public string? Localizacion { get; init; }

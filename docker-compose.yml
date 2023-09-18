@@ -1,0 +1,51 @@
+version: '3.4'
+
+services:
+  bluelife-db:
+    image: mariadb
+    container_name: Database
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: guest
+      MARIADB_USER: guest
+      MARIADB_PASSWORD: guest
+    volumes:
+        - ./.containers/database:/var/lib/mysql
+    ports:
+        - "3306:3306"
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./.containers/mongodb:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: bluelife-db
+  bluelife:
+    image: ${DOCKER_REGISTRY-}bluelife
+    build:
+      context: .
+      dockerfile: BlueLife/Dockerfile
+    depends_on:
+      - bluelife-db
+      - mongodb
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=bluelife-db;Port=3306;Database=bluelife;User=root;Password=guest;"
+      ConnectionStrings__MongoDBConnection: "mongodb://mongodb:27017"
+      SECRET: "ad3801fd-6d31-47c2-91dd-50576c835d3b"
+    volumes:
+        - ./.containers/myapp:/root/.aspnet/DataProtection-Keys
+    ports:
+        - "80:80"
+        - "52683:443"
+
+  adminer:
+    image: adminer
+    restart: always
+    environment:
+      ADMINER_DEFAULT_SERVER: bluelife-db
+    ports:
+      - "8080:8080"

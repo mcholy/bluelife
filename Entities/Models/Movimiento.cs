@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Models
 {
@@ -10,10 +6,14 @@ namespace Entities.Models
     {
         public Guid Id { get; set; }
         public string? Nombre { get; set; }
+        [ForeignKey(nameof(Producto))]
+        public Guid ProductoId { get; set; }
+        [ForeignKey(nameof(TipoMovimiento))]
+        public Guid TipoMovimientoId { get; set; }
         public DateTime DateEntry { get; set; }
-        public DateTime DateModify { get; set; }
-        public int IdUserEntry { get; set; }
-        public int IdUserModify { get; set; }
+        public DateTime? DateModify { get; set; }
+        public Guid IdUserEntry { get; set; }
+        public Guid? IdUserModify { get; set; }
         public string? Estado { get; set; }
         public decimal? Cantidad { get; set; }
         public Producto? Producto { get; set; }

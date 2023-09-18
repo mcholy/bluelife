@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Models
 {
-    public class Usuario
+    public class Usuario : IdentityUser
     {
-        public Guid Id { get; set; }
-        public string? Nombre { get; set; }
-        public string? Contraseña { get; set; }
-        public string? Email { get; set; }
-        public TipoUsuario? TipoUsuario { get; set; }
+        public string? RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
+        [ForeignKey(nameof(Persona))]
+        public Guid PersonaId { get; set; }
         public DateTime DateEntry { get; set; }
-        public DateTime DateModify { get; set; }
-        public int IdUserEntry { get; set; }
-        public int IdUserModify { get; set; }
+        public DateTime? DateModify { get; set; }
+        public Guid IdUserEntry { get; set; }
+        public Guid? IdUserModify { get; set; }
         public string? Estado { get; set; }
+        public Persona? Persona { get; set; }
     }
 }
