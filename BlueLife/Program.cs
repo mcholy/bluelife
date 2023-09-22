@@ -36,6 +36,8 @@ namespace BlueLife
 
             builder.Services.ConfigureDbContext(builder.Configuration);
 
+            //builder.Services.ConfigureNoSqlDB(builder.Configuration);
+
             builder.Services.ConfigureDataProtection(builder.Environment);
 
             builder.Services.AddAutoMapper(typeof(Program));

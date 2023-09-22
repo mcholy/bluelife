@@ -1,8 +1,9 @@
 ﻿using Contracts.IService;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DataTransferObjects;
+using Shared.RequestFeatures;
+using System.Text.Json;
 
 namespace BlueLife.Controllers
 {
@@ -18,11 +19,12 @@ namespace BlueLife.Controllers
         }
 
         [HttpGet(Name = "GetPersonas")]
-        //[Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Manager, Administrator")]
         [Authorize]
-        public async Task<IActionResult> GetPersonas()
+        public async Task<IActionResult> GetPersonas([FromQuery] PersonaParameters personaParameters)
         {
-            var personas = await _service.PersonaService.GetAllPersonasAsync(trackChanges: false);
+            var (personas, metaData) = await _service.PersonaService.GetAllPersonasAsync(personaParameters, trackChanges: false);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metaData));
             return Ok(personas);
         }
 

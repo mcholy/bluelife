@@ -20,6 +20,5 @@ namespace Shared.DataTransferObjects
         [Required(ErrorMessage = "Direccion es un campo requerido.")]
         [MaxLength(100, ErrorMessage = "El máximo número de carácteres es 100.")]
         public string? Direccion { get; init; }
-        public string? Estado { get; init; }
     }
 }
