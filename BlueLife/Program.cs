@@ -30,13 +30,17 @@ namespace BlueLife
 
             builder.Services.ConfigureLoggerService();
 
+            builder.Services.ConfigureDbContext(builder.Configuration);
+
+            builder.Services.ConfigureNoSqlDB(builder.Configuration);
+
             builder.Services.ConfigureRepositoryManager();
 
             builder.Services.ConfigureServiceManager();
 
-            builder.Services.ConfigureDbContext(builder.Configuration);
+            builder.Services.ConfigureMongoRepositoryManager();
 
-            //builder.Services.ConfigureNoSqlDB(builder.Configuration);
+            builder.Services.ConfigureMongoServiceManager();
 
             builder.Services.ConfigureDataProtection(builder.Environment);
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Entities.ConfigurationModels
+﻿namespace Entities.ConfigurationModels
 {
     public enum TypeOfActions
     {
@@ -18,10 +12,6 @@ namespace Entities.ConfigurationModels
             public const string Actived = "A";
             public const string Deactivated = "D";
         }
-        public static class Mongo
-        {
-            public const string DatabaseName = "bluelife";
-        }
     }
 
     public class GeneralConfiguration
@@ -34,5 +24,10 @@ namespace Entities.ConfigurationModels
     {
         public string Section { get; set; } = "NoSqlConstants";
         public string? ConnectionStringName { get; set; }
+        public string? MongoDatabase { get; set; }
+    }
+    public static class MongoCollectionNames
+    {
+        public const string Audits = "Audits";
     }
 }
