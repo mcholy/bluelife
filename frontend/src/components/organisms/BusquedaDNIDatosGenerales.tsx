@@ -29,8 +29,7 @@ function SecDatosGenerales() {
   const [datosFamiliares, setDatosFamiliares] = useState<
     datosFamiliaresProps[]
   >([]);
-  const activeButtonStyle: string =
-    "--tw-bg-opacity: 1; background-color: hsl(var(--n) / var(--tw-bg-opacity)); --tw-text-opacity: 1; color: hsl(var(--nc) / var(--tw-text-opacity));";
+  const activeButtonStyle = {"--tw-bg-opacity": 1, backgroundColor: "hsl(var(--n) / var(--tw-bg-opacity))", "--tw-text-opacity": 1, color: "hsl(var(--nc) / var(--tw-text-opacity))"};
   useEffect(() => {
     if (
       typeof infoPersonaData === "object" &&
@@ -113,9 +112,9 @@ function SecDatosGenerales() {
         <ul className="menu  menu-vertical lg:menu-horizontal bg-base-200 rounded-box">
           <li>
             <button
-              className={`${
-                currentTab === "datosGenerales" ? activeButtonStyle : ""
-              }`}
+              style={
+                currentTab === "datosGenerales" ? activeButtonStyle : {}
+              }
               onClick={() => setCurrentTab("datosGenerales")}
             >
               Datos Generales
@@ -123,9 +122,9 @@ function SecDatosGenerales() {
           </li>
           <li>
             <button
-              className={`${
-                currentTab === "datosLaborales" ? activeButtonStyle : ""
-              }`}
+              style={
+                currentTab === "datosLaborales" ? activeButtonStyle : {}
+              }
               onClick={() => setCurrentTab("datosLaborales")}
             >
               Datos Laborales
@@ -133,9 +132,9 @@ function SecDatosGenerales() {
           </li>
           <li>
             <button
-              className={`${
-                currentTab === "datosHistorico" ? activeButtonStyle : ""
-              }`}
+              style={
+                currentTab === "datosHistorico" ? activeButtonStyle : {}
+              }
               onClick={() => setCurrentTab("datosHistorico")}
             >
               Historico
@@ -143,9 +142,9 @@ function SecDatosGenerales() {
           </li>
           <li>
             <button
-              className={`${
-                currentTab === "datosDeudas" ? activeButtonStyle : ""
-              }`}
+              style={
+                currentTab === "datosDeudas" ? activeButtonStyle : {}
+              }
               onClick={() => setCurrentTab("datosDeudas")}
             >
               Deudas
@@ -153,9 +152,9 @@ function SecDatosGenerales() {
           </li>
           <li>
             <button
-              className={`${
-                currentTab === "datosOtros" ? activeButtonStyle : ""
-              }`}
+              style={
+                currentTab === "datosOtros" ? activeButtonStyle : {}
+              }
               onClick={() => setCurrentTab("datosOtros")}
             >
               Otros
@@ -163,9 +162,9 @@ function SecDatosGenerales() {
           </li>
           <li>
             <button
-              className={`${
-                currentTab === "datosResumen" ? activeButtonStyle : ""
-              }`}
+              style={
+                currentTab === "datosResumen" ? activeButtonStyle : {}
+              }
               onClick={() => setCurrentTab("datosResumen")}
             >
               Resumen Financiero

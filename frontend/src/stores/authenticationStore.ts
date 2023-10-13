@@ -46,6 +46,7 @@ export const authenticationStore = create<authenticationStoreProps>()(
           if (token !== null && refreshToken !== null) {
             get().signIn(token, refreshToken);
           } else {
+            get().credentials = [];
             get().signOut();
           }
         },

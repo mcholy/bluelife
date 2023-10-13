@@ -1,7 +1,9 @@
 ﻿using AspNetCoreRateLimit;
 using Contracts;
 using Contracts.IRepository;
+using Contracts.IRepository.NoSql;
 using Contracts.IService;
+using Contracts.IService.NoSql;
 using Entities.ConfigurationModels;
 using Entities.Models;
 using LoggerService;
@@ -12,8 +14,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 using Repository;
+using Repository.NoSql;
 using Serilog;
 using Service;
+using Service.NoSql;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -56,11 +60,9 @@ namespace BlueLife.Extensions
         public static void ConfigureLoggerService(this IServiceCollection services) =>
             services.AddSingleton<ILoggerManager, LoggerManager>();
 
-        public static void ConfigureRepositoryManager(this IServiceCollection services) =>
-            services.AddScoped<IRepositoryManager, RepositoryManager>();
+        public static void ConfigureRepositoryManager(this IServiceCollection services) => services.AddScoped<IRepositoryManager, RepositoryManager>();
 
-        public static void ConfigureServiceManager(this IServiceCollection services) =>
-            services.AddScoped<IServiceManager, ServiceManager>();
+        public static void ConfigureServiceManager(this IServiceCollection services) => services.AddScoped<IServiceManager, ServiceManager>();
 
         public static void ConfigureRateLimitingOptions(this IServiceCollection services)
         {
@@ -140,8 +142,15 @@ namespace BlueLife.Extensions
         {
             var noSqlConfiguration = new NoSqlConfiguration();
             configuration.Bind(noSqlConfiguration.Section, noSqlConfiguration);
-            services.AddSingleton<IMongoClient>(new MongoClient(configuration.GetConnectionString(noSqlConfiguration.ConnectionStringName!)));
+            services.AddSingleton(opt =>
+            {
+                return new MongoDbContext(new MongoClient(configuration.GetConnectionString(noSqlConfiguration.ConnectionStringName!)), noSqlConfiguration.MongoDatabase!);
+            });
         }
+
+        public static void ConfigureMongoRepositoryManager(this IServiceCollection services) => services.AddScoped<IMongoRepositoryManager, MongoRepositoryManager>();
+
+        public static void ConfigureMongoServiceManager(this IServiceCollection services) => services.AddScoped<IMongoServiceManager, MongoServiceManager>();
         #endregion
     }
 }
