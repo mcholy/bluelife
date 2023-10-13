@@ -2,6 +2,7 @@
 using Contracts.IRepository;
 using MongoDB.Driver;
 using System.Linq.Expressions;
+using Entities.Models;
 
 namespace Repository.NoSql
 {
@@ -14,8 +15,12 @@ namespace Repository.NoSql
             _collection = collection;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAllAsync(int? skip = null, int? limit = null)
         {
+            if (skip.HasValue && limit.HasValue)
+            {
+                return await _collection.Find(_ => true).Skip(skip).Limit(limit).ToListAsync();
+            }
             return await _collection.Find(_ => true).ToListAsync();
         }
 
@@ -24,7 +29,7 @@ namespace Repository.NoSql
             return await _collection.Find(expression).ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(Guid id)
+        public async Task<T> GetByIdAsync(string id)
         {
             return await _collection.Find(entity => entity.Id == id).FirstOrDefaultAsync();
         }
@@ -44,6 +49,11 @@ namespace Repository.NoSql
         {
             var filter = Builders<T>.Filter.Eq(e => e.Id, entity.Id);
             await _collection.DeleteOneAsync(filter);
+        }
+
+        public async Task<long> CountAsync()
+        {
+            return await _collection.EstimatedDocumentCountAsync();
         }
     }
 }
