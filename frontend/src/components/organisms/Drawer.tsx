@@ -31,6 +31,9 @@ function Drawer() {
           <li>
             <Link to={`/busquedadni`}>Busqueda DNI</Link>
           </li>
+          <li>
+            <Link to={`/reportebusqueda`}>Reporte de Busquedas</Link>
+          </li>
         </ul>
       </div>
     </div>
