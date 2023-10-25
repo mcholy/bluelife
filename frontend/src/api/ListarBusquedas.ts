@@ -1,13 +1,11 @@
 import axios from "axios";
-import { urlPersonaInfo } from "../utils/endpoints";
-async function busquedaDocumentoPost({ dni, force }: busquedaProps) {
-  const uid = "0";
-
-  let personaData;
+import { urlListConsultas } from "../utils/endpoints";
+async function listarBusquedasGet() {
+  let listPersonaData;
   await axios
-    .get(`${urlPersonaInfo}?uid=${uid}&dni=${dni}&force=${force}`)
+    .get(`${urlListConsultas}`)
     .then((res) => {
-      personaData = res.data.data;
+      listPersonaData = res.data.data;
     })
     .catch(function (error) {
       if (error.response) {
@@ -27,10 +25,7 @@ async function busquedaDocumentoPost({ dni, force }: busquedaProps) {
       }
     });
 
-  return personaData;
+  return listPersonaData;
 }
-interface busquedaProps {
-  dni: string;
-  force: string;
-}
-export default busquedaDocumentoPost;
+
+export default listarBusquedasGet;

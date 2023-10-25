@@ -8,6 +8,7 @@ import Almacen from "../layouts/Almacen";
 import BusquedaDNI from "../layouts/BusquedaDNI";
 import Cliente from "../layouts/Cliente";
 import User from "../layouts/User";
+import ReporteBusqueda from "../layouts/ReporteBusqueda";
 import ErrorPage from "../pages/ErrorPage";
 import LoginPage from "../pages/LoginPage";
 import { authenticationStore } from "../stores/authenticationStore";
@@ -38,6 +39,10 @@ const Routes = () => {
         {
           path: "busquedadni",
           element: <BusquedaDNI />,
+        },
+        {
+          path: "reportebusqueda",
+          element: <ReporteBusqueda />,
         },
       ],
       errorElement: <Navigate to="/" />,
