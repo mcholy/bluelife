@@ -19,7 +19,7 @@ function NavBar({ title }: navBarProps) {
         <div className="form-control">
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Buscar"
             className="input input-bordered w-24 md:w-auto"
           />
         </div>
@@ -31,9 +31,9 @@ function NavBar({ title }: navBarProps) {
           </label>
           <ul
             tabIndex={0}
-            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-300 rounded-box w-52"
           >
-            <li>
+            {/*<li>
               <a className="justify-between">
                 Perfil
                 <span className="badge">New</span>
@@ -41,7 +41,7 @@ function NavBar({ title }: navBarProps) {
             </li>
             <li>
               <a>Configuración</a>
-            </li>
+            </li>*/}
             <li>
               <button onClick={handleLogout}>Cerrar Sesión</button>
             </li>
