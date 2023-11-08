@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
-import { infoListBuscquedaStore } from "../../stores/listBusquedasStore";
-import listarBusquedasGet from "../../api/ListarBusquedas";
+import { infoListBusquedaStore } from "../../stores/listBusquedasStore";
 
 function TableReporteBusqueda() {
-  const infoListBusquedaData = () =>
-    infoListBuscquedaStore((state) => state.data);
+  const infoListBusquedaData = infoListBusquedaStore((state) => state.data);
 
-  infoListBuscquedaStore();
-  listarBusquedasGet();
-  const [datosListBusqueda, setDatosListBuscqueda] = useState<
+  const [datosListBusqueda, setDatosListBusqueda] = useState<
     listarBusquedaProps[]
   >([]);
   useEffect(() => {
@@ -16,7 +12,7 @@ function TableReporteBusqueda() {
       typeof infoListBusquedaData === "object" &&
       "datos" in infoListBusquedaData!
     ) {
-      setDatosListBuscqueda(infoListBusquedaData as listarBusquedaProps[]);
+      setDatosListBusqueda(infoListBusquedaData as listarBusquedaProps[]);
     }
   }, [infoListBusquedaData]);
   return (

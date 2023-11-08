@@ -9,7 +9,7 @@ interface InfoListBuscquedaStore {
   getInfoListBuscqueda: () => void;
 }
 
-export const infoListBuscquedaStore = create<InfoListBuscquedaStore>((set) => ({
+export const infoListBusquedaStore = create<InfoListBuscquedaStore>((set) => ({
   data: {},
   loading: false,
   getInfoListBuscqueda: async () => {
