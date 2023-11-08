@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import listarBusquedasGet from "../api/ListarBusquedas";
-import { getClaims } from "../api/handlerJWT";
 
 interface InfoListBuscquedaStore {
   data: unknown;
@@ -15,8 +14,7 @@ export const infoListBuscquedaStore = create<InfoListBuscquedaStore>((set) => ({
     try {
       set({ loading: true });
       const response = await listarBusquedasGet();
-      const { claims } = getClaims();
-      console.log(claims);
+      //const { claims } = getClaims();
       set({ data: response });
     } catch (error) {
       console.error("Error data", error);

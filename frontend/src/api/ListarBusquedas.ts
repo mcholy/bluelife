@@ -1,8 +1,8 @@
-import axios from "axios";
+import axiosWithHeaders from "../utils/axiosWithHeaders";
 import { urlListConsultas } from "../utils/endpoints";
 async function listarBusquedasGet() {
   let listPersonaData;
-  await axios
+  await axiosWithHeaders
     .get(`${urlListConsultas}`)
     .then((res) => {
       listPersonaData = res.data.data;

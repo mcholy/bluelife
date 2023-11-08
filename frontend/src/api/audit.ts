@@ -12,7 +12,6 @@ export async function createAudit(audit: auditForCreationDto) {
       `${urlAudit}`,
       audit
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error:", error);
@@ -22,7 +21,6 @@ export async function createAudit(audit: auditForCreationDto) {
 export async function getAudit(id: string) {
   try {
     const response = await axiosWithHeaders.get<auditDto>(`${urlAudit}/${id}`);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error:", error);
@@ -32,7 +30,6 @@ export async function getAudit(id: string) {
 export async function getAllAudits() {
   try {
     const response = await axiosWithHeaders.get<auditResponse>(`${urlAudit}`);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error:", error);

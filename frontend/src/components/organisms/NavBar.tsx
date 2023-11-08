@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../api/handlerJWT";
+import photoProfile from "../../assets/images/photo-example.jpg";
 import { authenticationStore } from "../../stores/authenticationStore";
 
 function NavBar({ title }: navBarProps) {
@@ -26,7 +27,7 @@ function NavBar({ title }: navBarProps) {
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img alt="photo" src="src/assets/images/photo-example.jpg" />
+              <img alt="photo" src={photoProfile} />
             </div>
           </label>
           <ul

@@ -36,7 +36,6 @@ function LoginForm() {
       saveTokenInLocalStorage(response as authenticationResponse);
       const { claims } = getClaims();
       setCredencials(claims);
-      console.log(claims);
       hydrateAuth();
       const { from } = location.state || { from: { pathname: "/" } };
       navigate(from, { replace: true });
