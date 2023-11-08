@@ -19,6 +19,7 @@ function Drawer() {
       <div className="drawer-side h-full ">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
+          {/*
           <li>
             <Link to={`/usuario`}>Usuario</Link>
           </li>
@@ -28,6 +29,7 @@ function Drawer() {
           <li>
             <Link to={`/cliente`}>Clientes</Link>
           </li>
+          */}
           <li>
             <Link to={`/busquedadni`}>Busqueda DNI</Link>
           </li>

@@ -32,15 +32,15 @@ namespace BlueLife
 
             builder.Services.ConfigureDbContext(builder.Configuration);
 
-            builder.Services.ConfigureNoSqlDB(builder.Configuration);
+            //builder.Services.ConfigureNoSqlDB(builder.Configuration);
 
             builder.Services.ConfigureRepositoryManager();
 
             builder.Services.ConfigureServiceManager();
 
-            builder.Services.ConfigureMongoRepositoryManager();
+            //builder.Services.ConfigureMongoRepositoryManager();
 
-            builder.Services.ConfigureMongoServiceManager();
+            //builder.Services.ConfigureMongoServiceManager();
 
             builder.Services.ConfigureDataProtection(builder.Environment);
 
@@ -65,6 +65,8 @@ namespace BlueLife
 
             builder.Services.ConfigureJWT(builder.Configuration);
 
+            builder.Services.AddHttpClient();
+
             builder.Services.AddControllers(config =>
             {
                 config.RespectBrowserAcceptHeader = true;
@@ -88,7 +90,7 @@ namespace BlueLife
             if (app.Environment.IsProduction())
                 app.UseHsts();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseStaticFiles();
 

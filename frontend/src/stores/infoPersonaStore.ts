@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import busquedaDocumentoPost from "../api/busquedaDocumento";
-import { getClaims } from "../api/handlerJWT";
 
 interface InfoPersonaStore {
   data: unknown;
@@ -15,8 +14,7 @@ export const infoPersonaStore = create<InfoPersonaStore>((set) => ({
     try {
       set({ loading: true });
       const response = await busquedaDocumentoPost({ dni, force });
-      const { claims } = getClaims();
-      console.log(claims);
+      //const { claims } = getClaims();
       /* await createAudit({
         userName: claims.length > 0 ? claims[0]["value"] : "",
         companyName: "company",
