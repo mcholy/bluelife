@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using BlueToolkit;
-using BlueToolkit.Extensions;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
@@ -10,7 +8,7 @@ namespace BlueLife.Controllers.Outsiders
 {
     [Route("api/infopersonas")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class InfoPersonasController : ControllerBase
     {
         private readonly HttpClient _httpClient;
@@ -80,30 +78,30 @@ namespace BlueLife.Controllers.Outsiders
             }
         }
 
-        private void ConvertToNestedDictionaries(Dictionary<string, object> dictionary)
-        {
-            foreach (var key in dictionary.Keys.ToList())
-            {
-                if (dictionary[key] is string jsonString)
-                {
-                    // Si el valor es una cadena JSON, intenta deserializarla como un diccionario
-                    try
-                    {
-                        var nestedDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonString);
-                        dictionary[key] = nestedDict;
-                        ConvertToNestedDictionaries(nestedDict);
-                    }
-                    catch (JsonException)
-                    {
-                        // Si no se puede deserializar, deja el valor como está
-                    }
-                }
-                else if (dictionary[key] is Dictionary<string, object> nestedDict)
-                {
-                    // Si el valor es un diccionario, realiza una conversión recursiva
-                    ConvertToNestedDictionaries(nestedDict);
-                }
-            }
-        }
+        //private void ConvertToNestedDictionaries(Dictionary<string, object> dictionary)
+        //{
+        //    foreach (var key in dictionary.Keys.ToList())
+        //    {
+        //        if (dictionary[key] is string jsonString)
+        //        {
+        //            // Si el valor es una cadena JSON, intenta deserializarla como un diccionario
+        //            try
+        //            {
+        //                var nestedDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonString);
+        //                dictionary[key] = nestedDict;
+        //                ConvertToNestedDictionaries(nestedDict);
+        //            }
+        //            catch (JsonException)
+        //            {
+        //                // Si no se puede deserializar, deja el valor como está
+        //            }
+        //        }
+        //        else if (dictionary[key] is Dictionary<string, object> nestedDict)
+        //        {
+        //            // Si el valor es un diccionario, realiza una conversión recursiva
+        //            ConvertToNestedDictionaries(nestedDict);
+        //        }
+        //    }
+        //}
     }
 }

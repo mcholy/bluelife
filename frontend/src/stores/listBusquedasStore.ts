@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import listarBusquedasGet from "../api/ListarBusquedas";
+import { checkAndTryRefreshToken } from "../hooks/useAuth";
 
 interface InfoListBuscquedaStore {
   data: unknown;
@@ -13,6 +14,7 @@ export const infoListBuscquedaStore = create<InfoListBuscquedaStore>((set) => ({
   getInfoListBuscqueda: async () => {
     try {
       set({ loading: true });
+      await checkAndTryRefreshToken();
       const response = await listarBusquedasGet();
       //const { claims } = getClaims();
       set({ data: response });

@@ -1,10 +1,11 @@
-import axios from "axios";
+import axiosWithHeaders from "../utils/axiosWithHeaders";
 import { urlPersonaInfo } from "../utils/endpoints";
 async function busquedaDocumentoPost({ dni, force }: busquedaProps) {
   let personaData;
-  await axios
+  await axiosWithHeaders
     .get(`${urlPersonaInfo}?dni=${dni}&force=${force}`)
     .then((res) => {
+      res.data = JSON.parse(res.data.replace(/\\/g, ""));
       personaData = res.data.data;
     })
     .catch(function (error) {

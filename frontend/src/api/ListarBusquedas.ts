@@ -5,6 +5,7 @@ async function listarBusquedasGet() {
   await axiosWithHeaders
     .get(`${urlListConsultas}`)
     .then((res) => {
+      res.data = JSON.parse(res.data.replace(/\\/g, ""));
       listPersonaData = res.data.data;
     })
     .catch(function (error) {
