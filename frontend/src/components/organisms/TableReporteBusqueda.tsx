@@ -6,7 +6,9 @@ function TableReporteBusqueda() {
   const infoListBusquedaData = infoListBuscquedaStore((state) => state.data);
   const loading = infoListBuscquedaStore((state) => state.loading);
   const { getInfoListBuscqueda } = infoListBuscquedaStore();
-  const [datosListBusqueda, setDatosListBuscqueda] = useState<listarBusquedaProps[]>([]);
+  const [datosListBusqueda, setDatosListBuscqueda] = useState<
+    listarBusquedaProps[]
+  >([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -20,29 +22,32 @@ function TableReporteBusqueda() {
   }, []);
 
   useEffect(() => {
-    if (typeof infoListBusquedaData === "object" && Object.keys(infoListBusquedaData as object).length > 0) {
+    if (
+      typeof infoListBusquedaData === "object" &&
+      Object.keys(infoListBusquedaData as object).length > 0
+    ) {
       setDatosListBuscqueda(infoListBusquedaData as listarBusquedaProps[]);
     }
   }, [infoListBusquedaData]);
 
   if (loading)
-  return (
-    <div className="flex justify-center">
-      <div className="stats shadow">
-        <div className="stat justify-items-center">
-          <div className="stat-title">Cargando...</div>
-          <div className="stat-value flex items-center">
-            <span className="loading loading-bars loading-xs"></span>
-            <span className="loading loading-bars loading-sm"></span>
-            <span className="loading loading-bars loading-md"></span>
-            <span className="loading loading-bars loading-lg"></span>
+    return (
+      <div className="flex justify-center">
+        <div className="stats shadow">
+          <div className="stat justify-items-center">
+            <div className="stat-title">Cargando...</div>
+            <div className="stat-value flex items-center">
+              <span className="loading loading-bars loading-xs"></span>
+              <span className="loading loading-bars loading-sm"></span>
+              <span className="loading loading-bars loading-md"></span>
+              <span className="loading loading-bars loading-lg"></span>
+            </div>
+            <div className="stat-desc">Recopilando información</div>
           </div>
-          <div className="stat-desc">Recopilando información</div>
         </div>
       </div>
-    </div>
-  );
-  
+    );
+
   return (
     <div>
       <div className="text-xl font-medium">Búsqueda</div>

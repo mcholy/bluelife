@@ -19,12 +19,12 @@ namespace BlueLife.Controllers.Outsiders
         }
 
         [HttpGet(Name ="getInfoPersonaByID")]
-        public async Task<IActionResult> GetInfoPersona([FromQuery] string dni, string force = "0")
+        public async Task<IActionResult> GetInfoPersona([FromQuery] string dni, string force = "0",string usuarioext="")
         {
             try
             {
                 // Hacer una solicitud al servicio externo utilizando HttpClient
-                HttpResponseMessage response = await _httpClient.GetAsync($"http://www.infoburo.com.pe/android/BuscarDocumentoAndroid?uid=0&dni={dni}&force={force}");
+                HttpResponseMessage response = await _httpClient.GetAsync($"http://www.infoburo.com.pe/android/BuscarDocumentoAndroid?uid=0&dni={dni}&force={force}&usuarioext={usuarioext}");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -50,12 +50,12 @@ namespace BlueLife.Controllers.Outsiders
         }
 
         [HttpGet("buscados")]
-        public async Task<IActionResult> GetBuscados()
+        public async Task<IActionResult> GetBuscados(string usuarioext = "")
         {
             try
             {
                 // Hacer una solicitud al servicio externo utilizando HttpClient
-                HttpResponseMessage response = await _httpClient.GetAsync($"http://www.infoburo.com.pe/android/ListarBuscados");
+                HttpResponseMessage response = await _httpClient.GetAsync($"http://www.infoburo.com.pe/android/ListarBuscados?usuarioext={usuarioext}");
 
                 if (response.IsSuccessStatusCode)
                 {
