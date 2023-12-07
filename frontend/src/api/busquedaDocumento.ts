@@ -1,9 +1,15 @@
 import axiosWithHeaders from "../utils/axiosWithHeaders";
 import { urlPersonaInfo } from "../utils/endpoints";
-async function busquedaDocumentoPost({ dni, force }: busquedaProps) {
+async function busquedaDocumentoPost({
+  dni,
+  force,
+  userexterno,
+}: busquedaProps) {
   let personaData;
   await axiosWithHeaders
-    .get(`${urlPersonaInfo}?dni=${dni}&force=${force}`)
+    .get(
+      `${urlPersonaInfo}?dni=${dni}&force=${force}&usuarioext=${userexterno}`
+    )
     .then((res) => {
       res.data = JSON.parse(res.data.replace(/\\/g, ""));
       personaData = res.data.data;
@@ -31,5 +37,6 @@ async function busquedaDocumentoPost({ dni, force }: busquedaProps) {
 interface busquedaProps {
   dni: string;
   force: string;
+  userexterno: string;
 }
 export default busquedaDocumentoPost;

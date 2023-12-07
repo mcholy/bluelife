@@ -1,11 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { infoListBuscquedaStore } from "../../stores/listBusquedasStore";
+import { infoListBusquedaStore } from "../../stores/listBusquedasStore";
+import { authenticationStore } from "../../stores/authenticationStore";
 
 function TableReporteBusqueda() {
-  const infoListBusquedaData = infoListBuscquedaStore((state) => state.data);
-  const loading = infoListBuscquedaStore((state) => state.loading);
-  const { getInfoListBuscqueda } = infoListBuscquedaStore();
+  const { credentials } = authenticationStore();
+
+  const infoListBusquedaData = infoListBusquedaStore((state) => state.data);
+  const loading = infoListBusquedaStore((state) => state.loading);
+  const { getInfoListBuscqueda } = infoListBusquedaStore();
   const [datosListBusqueda, setDatosListBuscqueda] = useState<
     listarBusquedaProps[]
   >([]);
@@ -13,7 +16,7 @@ function TableReporteBusqueda() {
   useEffect(() => {
     async function fetchData() {
       try {
-        await getInfoListBuscqueda();
+        await getInfoListBuscqueda(credentials[0].value);
       } catch (error) {
         console.error(error);
       }

@@ -1,15 +1,18 @@
 import { infoPersonaStore } from "../../stores/infoPersonaStore";
+import { authenticationStore } from "../../stores/authenticationStore";
 
 function ButtonBusqueda({ id, placeholder, dni }: buttonProps) {
+  const { credentials } = authenticationStore();
+
   const { setInfoPersona } = infoPersonaStore();
-  const busquedaDocumento = (dni: string, force: string) =>
-    setInfoPersona(dni, force);
+  const busquedaDocumento = (dni: string, force: string, userexterno: string) =>
+    setInfoPersona(dni, force, userexterno);
 
   return (
     <button
       id={id}
       className="btn btn-active btn-neutral"
-      onClick={() => busquedaDocumento(dni, "1")}
+      onClick={() => busquedaDocumento(dni, "1", credentials[0].value)}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
