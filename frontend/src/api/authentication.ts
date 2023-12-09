@@ -1,6 +1,6 @@
 import {
   authenticationResponse,
-  tokenDTO,
+  tokensDTO,
   userCredentials,
 } from "../models/auth.model";
 import axiosWithHeaders from "../utils/axiosWithHeaders";
@@ -18,7 +18,7 @@ export async function login(credencials: userCredentials) {
   }
 }
 
-export async function refreshToken(tokens: tokenDTO) {
+export async function refreshToken(tokens: tokensDTO) {
   try {
     const response = await axiosWithHeaders.post<authenticationResponse>(
       `${urlToken}/refresh`,

@@ -24,6 +24,6 @@ export interface tokensDTO {
 }
 
 export interface claimsResponse {
-  claims: claims[];
+  claims: claim[];
   expired: boolean;
 }

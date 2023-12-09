@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { infoPersonaStore } from "../../stores/infoPersonaStore";
 
+
 function SecDatosGenerales() {
   const [currentTab, setCurrentTab] = useState<string>("datosGenerales");
   const infoPersonaData = infoPersonaStore((state) => state.data);
@@ -30,6 +31,10 @@ function SecDatosGenerales() {
   const [datosFamiliares, setDatosFamiliares] = useState<
     datosFamiliaresProps[]
   >([]);
+
+  type Entidad = string;
+  type Monto = number;
+  
   const activeButtonStyle = {
     "--tw-bg-opacity": 1,
     backgroundColor: "hsl(var(--n) / var(--tw-bg-opacity))",
@@ -716,23 +721,21 @@ function SecDatosGenerales() {
                         ? datosHistorico.map((Historico, idx) => {
                             if (idx <= 2) {
                               return (
-                                <th>
+                                <th key={`datohistorico-${idx}`}>
                                   {Historico.fecha_reporte_sbs.substring(0, 6)}
-
                                   {Historico.sbs_detalle
-                                    ? Historico.sbs_detalle.map(
-                                        (DetalleHistorico, index) => (
+                                    ? Object.entries(Historico.sbs_detalle.reduce((obj, {entidad, monto}) => {
+                                      obj[entidad] = (obj[entidad] || 0) + Number(monto);
+                                      return obj;
+                                    },{} as Record<Entidad, Monto>)).map(([entidad, monto], index)=> (
                                           <tbody>
                                             <tr
                                               key={`detallehistorico-${index}`}
                                             >
                                               <td>
-                                                {DetalleHistorico.entidad}
+                                                {entidad}
                                               </td>
-                                              <td>
-                                                {DetalleHistorico.tipo_credito}
-                                              </td>
-                                              <td>{DetalleHistorico.monto}</td>
+                                              <td>{monto.toFixed(2)}</td>
                                             </tr>
                                           </tbody>
                                         )
