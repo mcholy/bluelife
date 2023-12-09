@@ -24,12 +24,18 @@ function SecDatosGenerales() {
   const [datosHistorico, setDatosHistorico] = useState<datosHistoricoProps[]>(
     []
   );
+
   const [datosDeudas, setDatosDeudas] = useState<datosDeudasProps[]>([]);
   const [datosResumen, setDatosResumen] = useState<datosResumenProps[]>([]);
   const [datosFamiliares, setDatosFamiliares] = useState<
     datosFamiliaresProps[]
   >([]);
-  const activeButtonStyle = {"--tw-bg-opacity": 1, backgroundColor: "hsl(var(--n) / var(--tw-bg-opacity))", "--tw-text-opacity": 1, color: "hsl(var(--nc) / var(--tw-text-opacity))"};
+  const activeButtonStyle = {
+    "--tw-bg-opacity": 1,
+    backgroundColor: "hsl(var(--n) / var(--tw-bg-opacity))",
+    "--tw-text-opacity": 1,
+    color: "hsl(var(--nc) / var(--tw-text-opacity))",
+  };
   useEffect(() => {
     if (
       typeof infoPersonaData === "object" &&
@@ -87,7 +93,6 @@ function SecDatosGenerales() {
     }
   }, [infoPersonaData]);
 
-
   if (loading)
     return (
       <div className="flex justify-center">
@@ -112,9 +117,7 @@ function SecDatosGenerales() {
         <ul className="menu  menu-vertical lg:menu-horizontal bg-base-200 rounded-box">
           <li>
             <button
-              style={
-                currentTab === "datosGenerales" ? activeButtonStyle : {}
-              }
+              style={currentTab === "datosGenerales" ? activeButtonStyle : {}}
               onClick={() => setCurrentTab("datosGenerales")}
             >
               Datos Generales
@@ -122,9 +125,7 @@ function SecDatosGenerales() {
           </li>
           <li>
             <button
-              style={
-                currentTab === "datosLaborales" ? activeButtonStyle : {}
-              }
+              style={currentTab === "datosLaborales" ? activeButtonStyle : {}}
               onClick={() => setCurrentTab("datosLaborales")}
             >
               Datos Laborales
@@ -132,9 +133,7 @@ function SecDatosGenerales() {
           </li>
           <li>
             <button
-              style={
-                currentTab === "datosHistorico" ? activeButtonStyle : {}
-              }
+              style={currentTab === "datosHistorico" ? activeButtonStyle : {}}
               onClick={() => setCurrentTab("datosHistorico")}
             >
               Historico
@@ -142,9 +141,7 @@ function SecDatosGenerales() {
           </li>
           <li>
             <button
-              style={
-                currentTab === "datosDeudas" ? activeButtonStyle : {}
-              }
+              style={currentTab === "datosDeudas" ? activeButtonStyle : {}}
               onClick={() => setCurrentTab("datosDeudas")}
             >
               Deudas
@@ -152,9 +149,7 @@ function SecDatosGenerales() {
           </li>
           <li>
             <button
-              style={
-                currentTab === "datosOtros" ? activeButtonStyle : {}
-              }
+              style={currentTab === "datosOtros" ? activeButtonStyle : {}}
               onClick={() => setCurrentTab("datosOtros")}
             >
               Otros
@@ -162,9 +157,7 @@ function SecDatosGenerales() {
           </li>
           <li>
             <button
-              style={
-                currentTab === "datosResumen" ? activeButtonStyle : {}
-              }
+              style={currentTab === "datosResumen" ? activeButtonStyle : {}}
               onClick={() => setCurrentTab("datosResumen")}
             >
               Resumen Financiero
@@ -704,7 +697,61 @@ function SecDatosGenerales() {
             </div>
           </div>
         </div>
+
+        <div
+          tabIndex={0}
+          className="collapse collapse-open collapse-arrow border border-base-300 bg-base-200 w-11/12 mx-auto mb-4"
+        >
+          <div className="collapse-title text-xl font-medium">
+            Detalle de Deuda
+          </div>
+          <div className="collapse-content">
+            <div className="card mt-2">
+              <div className="overflow-x-auto">
+                <table className="table">
+                  {/* head */}
+                  <thead>
+                    <tr>
+                      {datosHistorico
+                        ? datosHistorico.map((Historico, idx) => {
+                            if (idx <= 2) {
+                              return (
+                                <th>
+                                  {Historico.fecha_reporte_sbs.substring(0, 6)}
+
+                                  {Historico.sbs_detalle
+                                    ? Historico.sbs_detalle.map(
+                                        (DetalleHistorico, index) => (
+                                          <tbody>
+                                            <tr
+                                              key={`detallehistorico-${index}`}
+                                            >
+                                              <td>
+                                                {DetalleHistorico.entidad}
+                                              </td>
+                                              <td>
+                                                {DetalleHistorico.tipo_credito}
+                                              </td>
+                                              <td>{DetalleHistorico.monto}</td>
+                                            </tr>
+                                          </tbody>
+                                        )
+                                      )
+                                    : null}
+                                </th>
+                              );
+                            }
+                          })
+                        : null}
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
       <div className={`${currentTab != "datosOtros" ? "hidden" : ""}`}>
         <div
           tabIndex={0}
@@ -919,6 +966,7 @@ interface datosHistoricoDetalleProps {
   monto: string;
   dias_atraso: string;
 }
+
 interface datosDeudasProps {
   empresa: string;
   linea_otorgada: string;
