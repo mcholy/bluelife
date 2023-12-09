@@ -12,6 +12,7 @@ async function busquedaDocumentoPost({
     )
     .then((res) => {
       res.data = JSON.parse(res.data.replace(/\\/g, ""));
+
       personaData = res.data.data;
     })
     .catch(function (error) {
